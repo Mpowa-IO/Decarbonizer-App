@@ -5,10 +5,11 @@
 
 * Create a signup screen for Username, Password, and confirm password
 * Created a login screen for Username and Password
-# Attribute              # Description           # Python Data Type
 ## Heroes
 Created Heroes model
-* Fisrt Name              * Shows the first name    * String           
+## Attribute              ## Description           ## Python Data Type
+
+* Fisrt Name              ** Shows the first name    * String           
 * second Name             * Shows the second name
 * Gender                  * Shows the hero gender  
 * Email address           * Shows the hero email adress
