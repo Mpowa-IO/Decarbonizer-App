@@ -8,3 +8,7 @@ As a new user, you will be asked to select your role within the platform environ
 An IMPACTOR navigates through different projects, investigate the details, and facilitate the finance though the MPOWA-tokens, which can be tracked for complete TRANSPARENCY and TRUST. The entire experience is gamified to increase the level of participation, motivation and inclusion. 
 
 Mpowa's Substrate chain is EVM compatible which allows users to utilize classic web3 wallets such as metamask in the webapp, by adding a custom RPC.
+
+## Usage
+
+> read docs
