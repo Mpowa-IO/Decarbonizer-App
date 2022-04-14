@@ -9,9 +9,11 @@ import {
 import React from "react";
 import Images from "../../assets/images";
 import LinearGradient from "react-native-linear-gradient";
+import { height, width } from "../../services/dimensions";
 
 const token = () => {
   const [number, onChangeNumber] = React.useState(null);
+  const [toggle, setToggle] = React.useState(false);
 
   return (
     <View
@@ -29,7 +31,7 @@ const token = () => {
             style={{
               color: "#FFFFFF",
               fontFamily: "Alata-Regular",
-              width: 126,
+              width: width * 0.2,
               textAlign: "center",
             }}
           >
@@ -53,7 +55,7 @@ const token = () => {
       </View>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           marginTop: 20,
@@ -62,80 +64,103 @@ const token = () => {
           paddingBottom: 10,
         }}
       >
-        <View>
-          <Text
-            style={{
-              fontFamily: "Alata-Regular",
-              color: "#fff",
-              fontSize: 18,
-            }}
-          >
-            Project Fund
-          </Text>
-          <Text
-            style={{
-              fontFamily: "Alata-Regular",
-              color: "#fff",
-              fontSize: 12,
-              textAlign: "center",
-            }}
-          >
-            (minimum 150)
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: "#fff",
-            height: 43,
-            borderRadius: 24,
-            flexDirection: "row",
-            width: 150,
-            marginLeft: 20,
-          }}
-        >
-          <View style={{ marginTop: 5 }}>
-            <Image source={Images.COIN_LOGO} />
-          </View>
+        <View style={{ flexDirection: "row" }}>
           <View>
-            <View>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeNumber}
-                value={number}
-                placeholder=""
-                keyboardType="numeric"
-              />
-            </View>
-          </View>
-        </View>
-      </View>
-      <View style={{ width: 150, marginLeft: 150 }}>
-        <TouchableOpacity>
-          <LinearGradient
-            colors={["#1B1B1B", "#323232"]}
-            style={{
-              // paddingTop: 10,
-              // paddingLeft: 20,
-              // paddingBottom: 10,
-              // paddingRight: 20,
-              borderRadius: 24,
-              height: 43,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
             <Text
               style={{
-                fontSize: 13,
                 fontFamily: "Alata-Regular",
-                color: "#A8C634",
+                color: "#fff",
+                fontSize: 18,
+              }}
+            >
+              Project Fund
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Alata-Regular",
+                color: "#fff",
+                fontSize: 12,
                 textAlign: "center",
               }}
             >
-              add to fund
+              (minimum 150)
             </Text>
-          </LinearGradient>
-        </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              height: 43,
+              borderRadius: 24,
+              flexDirection: "row",
+              width: width * 0.35,
+              marginLeft: 20,
+            }}
+          >
+            <View style={{ marginTop: 5 }}>
+              <Image source={Images.COIN_LOGO} />
+            </View>
+            <View>
+              <View>
+                <TextInput
+                  style={{ color: "#000" }}
+                  onChangeText={onChangeNumber}
+                  value={number}
+                  placeholder=""
+                  keyboardType="numeric"
+                  defaultValue={toggle ? "350" : ""}
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={{
+            width: width * 0.35,
+            marginLeft: width * 0.3,
+            marginTop: height * 0.02,
+          }}
+        >
+          {toggle ? null : (
+            <TouchableOpacity onPress={() => setToggle(!toggle)}>
+              <LinearGradient
+                colors={["#1B1B1B", "#323232"]}
+                style={{
+                  borderRadius: 24,
+                  height: height * 0.06,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontFamily: "Alata-Regular",
+                    color: "#A8C634",
+                    textAlign: "center",
+                  }}
+                >
+                  add to fund
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          )}
+        </View>
+        {toggle && (
+          <View style={{ marginTop: 20 }}>
+            <Text
+              style={{
+                color: "#fff",
+                width: width * 0.7,
+                fontSize: 14,
+                fontFamily: "Alata-Regular",
+                textAlign: "center",
+              }}
+            >
+              Thank you for contributing to this project’s funding. You can
+              access your documents from your dashboard.
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

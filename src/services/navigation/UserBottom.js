@@ -13,18 +13,19 @@ import YourDashBoard from "../../screens/YourDashboard";
 
 import HomeIcon from "../../assets/BottomTab/Home.svg";
 import HomeActive from "../../assets/BottomTab/Active-home.svg";
-import WorkIcon from "../../assets/BottomTab/Work.svg";
-import WorkActive from "../../assets/BottomTab/Active-work.svg";
-import CategoryIcon from "../../assets/BottomTab/Category.svg";
-import CategoryActive from "../../assets/BottomTab/Active-Category.svg";
+import ScannerIcon from "../../assets/BottomTab/ScannerIcon.svg";
+import ScannerIconActive from "../../assets/BottomTab/ScannerIconActive.svg";
+import AddUserIcon from "../../assets/BottomTab/AddUser.svg";
+import AddUserIconActive from "../../assets/BottomTab/AddUserIconActive.svg";
 import WalletIcon from "../../assets/BottomTab/Wallet.svg";
 import WalletActive from "../../assets/BottomTab/Active-Wallet.svg";
 import More from "../../assets/BottomTab/More.svg";
 import MoreActive from "../../assets/BottomTab/Active-More.svg";
+import UserHome from "../../screens/UserHome";
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function UserBottom() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -43,8 +44,8 @@ function MyTabs() {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="UserHome"
+        component={UserHome}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -77,7 +78,7 @@ function MyTabs() {
                 paddingBottom: 20,
               }}
             >
-              {focused ? <WorkActive /> : <WorkIcon />}
+              {focused ? <ScannerIconActive /> : <ScannerIcon />}
             </View>
           ),
 
@@ -85,8 +86,8 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="YourDashBoard"
-        component={YourDashBoard}
+        name="AddUserIcon"
+        component={FundingStage}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -98,7 +99,7 @@ function MyTabs() {
                 paddingBottom: 20,
               }}
             >
-              {focused ? <CategoryActive /> : <CategoryIcon />}
+              {focused ? <AddUserIconActive /> : <AddUserIcon />}
             </View>
           ),
 
@@ -109,27 +110,6 @@ function MyTabs() {
       <Tab.Screen
         name="YouCarbon"
         component={Wallet}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                width: 45,
-                height: 45,
-                alignItems: "center",
-                justifyContent: "center",
-                paddingBottom: 20,
-              }}
-            >
-              {focused ? <WalletActive /> : <WalletIcon />}
-            </View>
-          ),
-
-          tabBarShowLabel: false,
-        }}
-      />
-      <Tab.Screen
-        name="ExtraMenu"
-        component={ExtraMenu}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -152,4 +132,4 @@ function MyTabs() {
   );
 }
 
-export default MyTabs;
+export default UserBottom;

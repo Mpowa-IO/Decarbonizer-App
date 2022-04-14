@@ -1,45 +1,45 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
-import {Formik} from 'formik';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import * as yup from 'yup';
-import DropDownPicker from 'react-native-dropdown-picker';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
+import { Formik } from "formik";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as yup from "yup";
 
 // component
-import Container from '../components/container';
-import Breadcrumbs from '../components/Breadcrumbs';
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
+import Container from "../components/container";
+import Breadcrumbs from "../components/Breadcrumbs";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 
 // data
-import {CA} from '../services/data';
-import {strings} from '../components/strings';
-import InfoLabel from '../components/InfoLabel';
-import Footer from '../components/Footer';
-import {height} from '../services/dimensions';
+import { CA } from "../services/data";
+import { strings } from "../components/strings";
+import InfoLabel from "../components/InfoLabel";
+import Footer from "../components/Footer";
+import { height } from "../services/dimensions";
 
-const CompanySize = ({navigation}) => {
+const CompanySize = ({ navigation }) => {
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
-      .email('Please enter valid email')
-      .required('Email Address is Required'),
+      .email("Please enter valid email")
+      .required("Email Address is Required"),
     password: yup
       .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .required("Password is required"),
   });
 
   return (
     <View style={styles.CreatAccountStyle}>
       <View
         style={{
-          alignItems: 'center',
+          alignItems: "center",
           height: height * 0.95,
-          backgroundColor: '#201E21',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+          backgroundColor: "#201E21",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <View style={styles.TopItem}>
           <View>
             <Breadcrumbs
@@ -53,10 +53,10 @@ const CompanySize = ({navigation}) => {
             </Container>
           </View>
         </View>
-        <ScrollView style={{width: '100%'}}>
+        <ScrollView style={{ width: "100%" }}>
           <View style={[styles.BottomView]}>
             <Container isPadding>
-              <TextInput isLabel Label={'Number of employees'} />
+              <TextInput isLabel Label={"Number of employees"} />
               <View style={styles.MainSelect}>
                 <Pressable style={styles.PressableText}>
                   <Text style={styles.MainSelectText}>0-50 </Text>
@@ -68,26 +68,27 @@ const CompanySize = ({navigation}) => {
                   <Text style={styles.MainSelectText}>500-5000</Text>
                 </Pressable>
                 <Pressable
-                  style={[styles.PressableText, {borderBottomWidth: 0}]}>
+                  style={[styles.PressableText, { borderBottomWidth: 0 }]}
+                >
                   <Text style={styles.MainSelectText}>Over 5000</Text>
                 </Pressable>
               </View>
               <Button
                 isNormal
-                onPress={() => navigation.navigate('YouCarbon')}
+                onPress={() => navigation.navigate("YouCarbon")}
                 ButtonText={strings.Next}
-                ButtonColor={'#A8C634'}
-                TextColor={'#E5E5E5'}
-                style={{marginTop: 40}}
+                ButtonColor={"#A8C634"}
+                TextColor={"#E5E5E5"}
+                style={{ marginTop: 40 }}
               />
               <Button
                 isNormal
-                onPress={() => console.log('hello')}
+                onPress={() => console.log("hello")}
                 ButtonText={strings.Skip}
-                TextColor={'#E5E5E5'}
+                TextColor={"#E5E5E5"}
                 style={{
                   marginTop: 20,
-                  shadowColor: '#0000',
+                  shadowColor: "#0000",
                   shadowOffset: {
                     width: 0,
                     height: 0,
@@ -97,7 +98,7 @@ const CompanySize = ({navigation}) => {
 
                   elevation: 0,
                 }}
-                ButtonColor={'#201E21'}
+                ButtonColor={"#201E21"}
               />
             </Container>
           </View>
@@ -109,11 +110,11 @@ const CompanySize = ({navigation}) => {
 
 const styles = StyleSheet.create({
   CreatAccountStyle: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
     height: height * 1,
   },
   TopItem: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
   },
   SocialView: {
     paddingTop: 20,
@@ -122,24 +123,24 @@ const styles = StyleSheet.create({
   BottomView: {
     // flex: 0.5,
     paddingTop: 30,
-    width: '100%',
+    width: "100%",
   },
   DropDown: {
     marginTop: 10,
   },
   MainSelect: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 20,
     borderRadius: 6,
     marginTop: 10,
   },
   MainSelectText: {
     fontSize: 18,
-    fontFamily: 'Alata-Regular',
-    color: '#434343',
+    fontFamily: "Alata-Regular",
+    color: "#434343",
   },
   PressableText: {
-    borderBottomColor: '#C4C4C4',
+    borderBottomColor: "#C4C4C4",
     borderBottomWidth: 1,
     paddingBottom: 10,
     paddingTop: 10,

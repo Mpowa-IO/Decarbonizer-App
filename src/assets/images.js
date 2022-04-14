@@ -60,6 +60,13 @@ const Images = {
   CLOSE: require("./Funding/close.png"),
   TOKEN_BIG: require("./Token.png"),
   COIN_LOGO: require("./Funding/Logo_coin.png"),
+  GRAPH_DASHBOARD: require("./Dashboard/Graph.png"),
+  DASH_ONE: require("./Dashboard/1.png"),
+  DASH_TWO: require("./Dashboard/2.png"),
+  BUTTON_BG: require("./buttonBg.png"),
+  USER_ACC_IMG: require("./UserHome/UserHome.png"),
+  PROFILE_DASHBOARD: require("./UserHome/profile.png"),
+  EYE_USER: require("./UserHome/eye.png"),
 };
 
 export default Images;

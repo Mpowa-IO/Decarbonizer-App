@@ -11,8 +11,12 @@ import Images from "../assets/images";
 import Container from "../components/container";
 import Logo from "../components/Logo";
 import FundingDetails from "../components/FundingDetails";
+import Graph from "../components/Graph";
+import ColorSelection from "../components/ColorSelection";
+import PreLunch from "../components/PreLunch";
+import { height } from "../services/dimensions";
 
-const FundingStage = (props) => {
+const YourDashBoard = (props) => {
   const { navigation } = props;
 
   return (
@@ -24,23 +28,21 @@ const FundingStage = (props) => {
         <Container>
           <View style={styles.FilterMain}>
             <View>
-              <Text style={styles.Text}>Projects at funding stage</Text>
-            </View>
-            <View>
-              <TouchableOpacity
-                style={{
-                  width: 40,
-                  alignItems: "center",
-                }}
-              >
-                <Image source={Images.FILTER} />
-              </TouchableOpacity>
+              <Text style={styles.Text}>YOUR DaSHBOARD</Text>
             </View>
           </View>
         </Container>
       </View>
-      <ScrollView nestedScrollEnabled={true}>
-        <FundingDetails {...props} />
+      <ScrollView>
+        <View style={{ backgroundColor: "#000000" }}>
+          <Graph />
+        </View>
+        <View style={{ backgroundColor: "#181818" }}>
+          <ColorSelection />
+        </View>
+        <View style={{ paddingBottom: 100 }}>
+          <PreLunch />
+        </View>
       </ScrollView>
     </View>
   );
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#181818",
   },
   HomeFilter: {
-    backgroundColor: "#2E2E2E",
+    backgroundColor: "#181818",
   },
   FilterMain: {
     flexDirection: "row",
@@ -69,4 +71,4 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 });
-export default FundingStage;
+export default YourDashBoard;

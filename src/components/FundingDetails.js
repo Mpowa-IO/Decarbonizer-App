@@ -249,8 +249,6 @@ const FundingDetails = ({ navigation }) => {
     }
   };
   const displayToolTip = (title, state) => {
-    console.log("this is a title a ", title);
-    console.log("this is a state a ", state);
     switch (title) {
       case "funded":
         return (

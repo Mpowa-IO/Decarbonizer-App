@@ -20,6 +20,7 @@ export default function Home(props) {
     <View
       style={{
         flex: 1,
+        // backgroundColor:'#000'
       }}
     >
       <ScrollView>
@@ -31,7 +32,11 @@ export default function Home(props) {
         <View>
           <HomeCenter {...props} />
         </View>
-        <View style={{ paddingBottom: 80 }}>
+        <View
+          style={{
+            paddingBottom: 80,
+          }}
+        >
           <HomeBottom {...props} />
         </View>
       </ScrollView>
