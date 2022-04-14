@@ -28,6 +28,7 @@ import PurchaseTokens from "../screens/PurchaseTokens";
 import Wallet from "../screens/Wallet";
 import PaymentMethod from "../screens/PaymentMethod";
 import UserBottom from "../services/navigation/UserBottom";
+import UserForm from "../screens/UserForm";
 
 const Routes = () => {
   const Stack = createNativeStackNavigator();
@@ -73,6 +74,7 @@ const Routes = () => {
       <Stack.Screen name="Wallet" component={Wallet} />
       <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
       <Stack.Screen name="UserBottom" component={UserBottom} />
+      <Stack.Screen name="UserForm" component={UserForm} />
     </Stack.Navigator>
   );
 };

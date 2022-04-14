@@ -7,7 +7,7 @@ import { height } from "../services/dimensions";
 
 const UserHome = () => {
   return (
-    <View style={{ backgroundColor: "#181818" }}>
+    <View style={{ backgroundColor: "#181818", flex: 1 }}>
       <View>
         <Logo />
       </View>
@@ -18,11 +18,12 @@ const UserHome = () => {
         <View>
           <UserBottom />
         </View>
-        <View style={{ paddingBottom: 174 }} />
+        <View style={{ paddingBottom: 50 }} />
       </ScrollView>
     </View>
   );
 };
 
 export default UserHome;
+
 const styles = StyleSheet.create({});

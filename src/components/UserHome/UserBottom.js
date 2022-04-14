@@ -6,8 +6,19 @@ import { height, width } from "../../services/dimensions";
 export default function UserBottom() {
   return (
     <View>
-      <View style={{ flexDirection: "row", height: height * 0.2 }}>
-        <View style={{ width: width * 0.5, backgroundColor: "#2E2E2E" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          height: height * 0.2,
+        }}
+      >
+        <View
+          style={{
+            width: width * 0.5,
+            backgroundColor: "#2E2E2E",
+            justifyContent: "center",
+          }}
+        >
           <Text
             style={{
               fontSize: 48,
@@ -70,6 +81,7 @@ export default function UserBottom() {
             backgroundColor: "#000000",
             flexDirection: "row",
             alignItems: "center",
+            paddingLeft: 15,
           }}
         >
           <View>

@@ -22,6 +22,7 @@ import WalletActive from "../../assets/BottomTab/Active-Wallet.svg";
 import More from "../../assets/BottomTab/More.svg";
 import MoreActive from "../../assets/BottomTab/Active-More.svg";
 import UserHome from "../../screens/UserHome";
+import UserForm from "../../screens/UserForm";
 
 const Tab = createBottomTabNavigator();
 
@@ -65,8 +66,8 @@ function UserBottom() {
         }}
       />
       <Tab.Screen
-        name="FundingStage"
-        component={FundingStage}
+        name="UserForm"
+        component={UserForm}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

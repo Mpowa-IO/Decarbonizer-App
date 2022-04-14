@@ -67,6 +67,8 @@ const Images = {
   USER_ACC_IMG: require("./UserHome/UserHome.png"),
   PROFILE_DASHBOARD: require("./UserHome/profile.png"),
   EYE_USER: require("./UserHome/eye.png"),
+  LEFT_ARROW_GREEN: require("./UserHome/leftGreen.png"),
+  BUTTON_GREEN: require("./UserHome/btnGreen.png"),
 };
 
 export default Images;
