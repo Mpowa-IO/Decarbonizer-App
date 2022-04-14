@@ -24,6 +24,11 @@ const UserFormStep = () => {
       userDetails: "Please enter user information below.",
       componet: <Step3 />,
     },
+    {
+      topTitle: "User registration step 2",
+      userDetails: "Please enter user information below.",
+      componet: <Step3 />,
+    },
   ];
 
   return (
