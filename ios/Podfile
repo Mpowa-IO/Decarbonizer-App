@@ -1,5 +1,6 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+pod 'WalletConnect', git: 'https://github.com/trustwallet/wallet-connect-swift', branch: 'master'
 
 platform :ios, '11.0'
 
