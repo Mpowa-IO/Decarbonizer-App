@@ -1,0 +1,4 @@
+export const SAVE_SIGN_UP = "SAVE_SIGN_UP";
+export const POST_SIGN_UP = "POST_SIGN_UP";
+export const POST_SIGN_UP_SUCCESS = "POST_SIGN_UP_SUCCESS";
+export const POST_SIGN_UP_FAILURE = "POST_SIGN_UP_FAILURE";

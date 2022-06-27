@@ -1,0 +1,7 @@
+export const SET_EMAIL = "SET_EMAIL";
+export const SET_ACCOUNT_DETAILS = "SET_ACCOUNT_DETAILS";
+export const SET_NAMES = "SET_NAMES";
+export const SET_COMPANY_DETAILS = "SET_COMPANY_DETAILS";
+export const SET_COMPANY_SIZE = "SET_COMPANY_SIZE";
+export const SET_CARBON = "SET_CARBON";
+export const RESET_STATE = "RESET_STATE";
