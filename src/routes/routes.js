@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 // screen
 import SignUp from "../screens/SignUp";
 import CreatAccount from "../screens/CreatAccount";
@@ -31,6 +30,8 @@ import UserBottom from "../services/navigation/UserBottom";
 import UserForm from "../screens/UserForm";
 
 const Routes = () => {
+  const [initialRoute, setInitialRoute] = React.useState(null);
+
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator

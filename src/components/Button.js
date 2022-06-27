@@ -1,5 +1,12 @@
-import React from 'react';
-import {StyleSheet, Text, View, Pressable, Image} from 'react-native';
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
 export default function Button(props) {
   const {
@@ -15,27 +22,31 @@ export default function Button(props) {
   return (
     <View style={style}>
       {isNormal && (
-        <Pressable
-          style={[styles.button, {backgroundColor: ButtonColor}]}
-          onPress={onPress}>
-          <Text style={[styles.BtnText, {color: TextColor}]}>{ButtonText}</Text>
-        </Pressable>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: ButtonColor }]}
+          onPress={onPress}
+        >
+          <Text style={[styles.BtnText, { color: TextColor }]}>
+            {ButtonText}
+          </Text>
+        </TouchableOpacity>
       )}
       {isSocialButton && (
-        <Pressable
-          style={[styles.button, {backgroundColor: ButtonColor}]}
-          onPress={onPress}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: ButtonColor }]}
+          onPress={onPress}
+        >
           <View style={styles.SocialButton}>
             <View style={styles.SocialImg}>
               <Image source={url} />
             </View>
             <View style={styles.SocialBtn}>
-              <Text style={[styles.BtnText, {color: TextColor}]}>
+              <Text style={[styles.BtnText, { color: TextColor }]}>
                 {ButtonText}
               </Text>
             </View>
           </View>
-        </Pressable>
+        </TouchableOpacity>
       )}
     </View>
   );
@@ -47,9 +58,9 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     borderRadius: 2,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
     // shadowColor: '#000',
     // shadowOffset: {
     //   width: 0,
@@ -62,11 +73,11 @@ const styles = StyleSheet.create({
   },
   BtnText: {
     fontSize: 18,
-    fontFamily: 'Alata-Regular',
+    fontFamily: "Alata-Regular",
   },
   SocialButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   SocialBtn: {
     marginLeft: 10,

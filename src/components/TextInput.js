@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,10 +6,10 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-} from 'react-native';
-import Images from '../assets/images';
+} from "react-native";
+import Images from "../assets/images";
 
-const TextInputField = props => {
+const TextInputField = (props) => {
   const {
     Label,
     onChangeText,
@@ -21,6 +21,7 @@ const TextInputField = props => {
     style,
     color,
     isLabel,
+    defaultValue,
     isPassword,
     isInput,
     isDropDown,
@@ -33,16 +34,17 @@ const TextInputField = props => {
           <Text style={styles.LabelText}>{Label}</Text>
         </View>
       )}
-      <View style={{position: 'relative'}}>
+      <View style={{ position: "relative" }}>
         {isInput && (
           <TextInput
             onChangeText={onChangeText}
             onBlur={onBlur}
             value={TextValue}
+            defaultValue={defaultValue}
             placeholder={placeholder}
             placeholderTextColor={placeholderTextColor}
             keyboardType={keyboardType}
-            style={[styles.TextInputStyle, {color: color}]}
+            style={[styles.TextInputStyle, { color: color }]}
           />
         )}
         {isPassword && (
@@ -58,19 +60,19 @@ const TextInputField = props => {
 const styles = StyleSheet.create({
   TextInputStyle: {
     fontSize: 18,
-    fontWeight: '400',
-    fontFamily: 'Alata-Regular',
-    backgroundColor: '#253858',
+    fontWeight: "400",
+    fontFamily: "Alata-Regular",
+    backgroundColor: "#253858",
     borderRadius: 2,
     paddingLeft: 20,
   },
   LabelText: {
-    color: '#FFFFFF',
-    fontFamily: 'Alata-Regular',
+    color: "#FFFFFF",
+    fontFamily: "Alata-Regular",
     marginBottom: 5,
   },
   EyeButton: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 5,
   },

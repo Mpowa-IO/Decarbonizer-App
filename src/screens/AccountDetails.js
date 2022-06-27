@@ -1,43 +1,79 @@
-import React from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {Formik} from 'formik';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import * as yup from 'yup';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { Formik } from "formik";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as yup from "yup";
 // component
-import Container from '../components/container';
-import Breadcrumbs from '../components/Breadcrumbs';
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
-
+import Container from "../components/container";
+import Breadcrumbs from "../components/Breadcrumbs";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 // data
-import {CA} from '../services/data';
-import {strings} from '../components/strings';
-import InfoLabel from '../components/InfoLabel';
-import Footer from '../components/Footer';
-import {height} from '../services/dimensions';
+import { strings } from "../components/strings";
+import InfoLabel from "../components/InfoLabel";
+import { height } from "../services/dimensions";
+import { useDispatch, useSelector } from "react-redux";
+import { setAccount } from "../store";
+import CustomPasswordInput from "../components/CustomPasswordInput";
 
-const AccountDetails = ({navigation}) => {
+const AccountDetails = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const { initial_email, email, verifyEmail, password } = useSelector(
+    (state) => state.account
+  );
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+
+  const togglePassWordVisible = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
-      .email('Please enter valid email')
-      .required('Email Address is Required'),
+      .email("Please enter valid email")
+      .trim()
+      .required("Email Address is Required")
+      .matches(initial_email, "Email Not Match With Previous Mail"),
     password: yup
       .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
+      // .required("password Address is Required")
+      .min(6, "Your password must be longer than 6 characters.")
+      .matches(/^(?=.{6,})/, "Must Contain 6 Characters")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])/,
+        "Must Contain One Uppercase, One Lowercase"
+      )
+      .matches(
+        /^(?=.*[!@#\$%\^&\*])/,
+        "Must Contain One Special Case Character"
+      )
+      .matches(/^(?=.{6,20}$)\D*\d/, "Must Contain One Number")
+      .trim(),
   });
 
+  console.log(
+    "initial_email in Account Screen",
+    initial_email,
+    "email",
+    email,
+    "verifyEmail",
+    verifyEmail,
+    "verifyEmail",
+    password
+  );
   return (
     <KeyboardAwareScrollView style={styles.CreatAccountStyle}>
       <View
         style={{
-          alignItems: 'center',
+          alignItems: "center",
           height: height * 0.95,
-          backgroundColor: '#201E21',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+          backgroundColor: "#201E21",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <View style={styles.TopItem}>
           <View>
             <Breadcrumbs
@@ -51,68 +87,90 @@ const AccountDetails = ({navigation}) => {
             </Container>
           </View>
         </View>
-        <ScrollView style={{width: '100%'}}>
+        <ScrollView style={{ width: "100%" }}>
           <View style={styles.BottomView}>
             <Formik
               validationSchema={loginValidationSchema}
-              initialValues={{email: '', password: '', Cpassword: ''}}
-              onSubmit={values => console.log(values)}>
-              {({handleChange, handleBlur, handleSubmit, values, errors}) => (
+              initialValues={{
+                email: email,
+                verifyEmail: verifyEmail,
+                password: password,
+              }}
+              onSubmit={(values) => {
+                console.log(values);
+                dispatch(setAccount(values));
+                navigation.navigate("Yourname");
+              }}
+            >
+              {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                 <Container isPadding>
+                  {console.log("errors", errors)}
                   <TextInput
                     isLabel
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
                     value={values.email}
                     placeholder={strings.emailPlaceholder}
-                    placeholderTextColor={'rgba(196, 196, 196, 0.54)'}
+                    placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
                     Label={strings.email}
-                    color={'#FFFFFF'}
+                    color={"#FFFFFF"}
                     isInput
+                    defaultValue={email}
                   />
+                  {errors.email && (
+                    <Text style={{ fontSize: 10, color: "red" }}>
+                      {errors.email}
+                    </Text>
+                  )}
                   <TextInput
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    value={values.password}
+                    onChangeText={handleChange("verifyEmail")}
+                    onBlur={handleBlur("verifyEmail")}
+                    value={values.verifyEmail}
                     placeholder={strings.VerifyEmail}
-                    placeholderTextColor={'rgba(196, 196, 196, 0.54)'}
-                    color={'#FFFFFF'}
-                    style={{marginTop: 20}}
+                    placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
+                    color={"#FFFFFF"}
+                    style={{ marginTop: 20 }}
+                    defaultValue={verifyEmail}
                     isInput
                   />
-                  <TextInput
-                    onChangeText={handleChange('Cpassword')}
-                    onBlur={handleBlur('Cpassword')}
-                    value={values.Cpassword}
+                  <CustomPasswordInput
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
                     placeholder={strings.Password}
-                    placeholderTextColor={'rgba(196, 196, 196, 0.54)'}
-                    color={'#FFFFFF'}
-                    style={{marginTop: 20}}
+                    placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
+                    color={"#FFFFFF"}
+                    style={{ marginTop: 20 }}
                     isPassword
                     isInput
+                    togglePassword={togglePassWordVisible}
+                    defaultValue={password}
+                    hidePassword={isPasswordVisible}
                   />
+                  {errors.password && (
+                    <Text style={{ fontSize: 10, color: "red" }}>
+                      {errors.password}
+                    </Text>
+                  )}
                   <Text
                     style={{
-                      color: '#D1D1D6',
-                      fontFamily: 'Alata-Regular',
+                      color: "#D1D1D6",
+                      fontFamily: "Alata-Regular",
                       paddingTop: 5,
                       paddingBottom: 5,
-                    }}>
+                    }}
+                  >
                     Your password should have minimum of 6 characters, one
                     capital letter, one number, and one special character.
                   </Text>
-                  {/* {errors.email && (
-                    <Text style={{fontSize: 10, color: 'red'}}>
-                      {errors.email}
-                    </Text>
-                  )} */}
+
                   <Button
                     isNormal
-                    onPress={() => navigation.navigate('Yourname')}
+                    onPress={handleSubmit}
                     ButtonText={strings.Next}
-                    ButtonColor={'#A8C634'}
-                    TextColor={'#E5E5E5'}
-                    style={{marginTop: 20}}
+                    ButtonColor={"#A8C634"}
+                    TextColor={"#E5E5E5"}
+                    style={{ marginTop: 20 }}
                   />
                 </Container>
               )}
@@ -126,11 +184,11 @@ const AccountDetails = ({navigation}) => {
 
 const styles = StyleSheet.create({
   CreatAccountStyle: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
     height: height * 1,
   },
   TopItem: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
   },
   SocialView: {
     paddingTop: 20,

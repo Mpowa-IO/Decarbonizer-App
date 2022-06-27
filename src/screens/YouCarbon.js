@@ -1,45 +1,50 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
-import {Formik} from 'formik';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import * as yup from 'yup';
-import DropDownPicker from 'react-native-dropdown-picker';
-
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 // component
-import Container from '../components/container';
-import Breadcrumbs from '../components/Breadcrumbs';
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
-
+import Container from "../components/container";
+import Breadcrumbs from "../components/Breadcrumbs";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 // data
-import {CA} from '../services/data';
-import {strings} from '../components/strings';
-import InfoLabel from '../components/InfoLabel';
-import Footer from '../components/Footer';
-import {height} from '../services/dimensions';
+import { strings } from "../components/strings";
+import InfoLabel from "../components/InfoLabel";
+import { height } from "../services/dimensions";
+import { useDispatch, useSelector } from "react-redux";
+import { postSignup, resetForm, setCarbon } from "../store";
+const YouCarbon = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { in_role } = useSelector((state) => state.account);
 
-const YouCarbon = ({navigation}) => {
-  const loginValidationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email('Please enter valid email')
-      .required('Email Address is Required'),
-    password: yup
-      .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
-  });
+  const [yourCarban, setYourCarban] = useState([
+    { info: "Am responsble for ESG / carbon offset", id: 1 },
+    { info: "Influence decision making on this topic", id: 2 },
+    { info: "Am thinking about taking the next steps", id: 3 },
+    { info: "Other", id: 4 },
+  ]);
+
+  const [selectCarbon, setSelectCarbon] = useState(in_role);
+
+  const data = useSelector((state) => state.account);
+
+  console.log("data", data);
 
   return (
     <View style={styles.CreatAccountStyle}>
       <View
         style={{
-          alignItems: 'center',
+          alignItems: "center",
           height: height * 0.95,
           //   backgroundColor: '#201E21',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <View style={styles.TopItem}>
           <View>
             <Breadcrumbs
@@ -53,57 +58,62 @@ const YouCarbon = ({navigation}) => {
             </Container>
           </View>
         </View>
-        <ScrollView style={{width: '100%'}}>
+        <ScrollView style={{ width: "100%" }}>
           <View style={[styles.BottomView]}>
             <Container isPadding>
-              <TextInput isLabel Label={'In my role, I...'} />
+              <TextInput isLabel Label={"In my role, I..."} />
               <View style={styles.MainSelect}>
-                <Pressable style={styles.PressableText}>
-                  <Text style={styles.MainSelectText}>
-                    Am responsble for ESG / carbon offset
-                  </Text>
-                </Pressable>
-                <Pressable style={styles.PressableText}>
-                  <Text style={styles.MainSelectText}>
-                    Influence decision making on this topic
-                  </Text>
-                </Pressable>
-                <Pressable style={styles.PressableText}>
-                  <Text style={styles.MainSelectText}>
-                    Am thinking about taking the next steps
-                  </Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.PressableText, {borderBottomWidth: 0}]}>
-                  <Text style={styles.MainSelectText}>Other</Text>
-                </Pressable>
+                {yourCarban.map((role) => {
+                  return (
+                    <TouchableOpacity
+                      key={role.id}
+                      style={{
+                        borderBottomColor: "#C4C4C4",
+                        borderBottomWidth: 1,
+                        paddingBottom: 10,
+                        paddingTop: 10,
+                        backgroundColor:
+                          selectCarbon.id === role.id ? "#e6e6e6" : "white",
+                      }}
+                      onPress={() => {
+                        console.log("ino", role);
+                        setSelectCarbon(role);
+                      }}
+                    >
+                      <Text style={styles.MainSelectText}>{role.info}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
               <Button
                 isNormal
-                onPress={() => navigation.navigate('TakeTour')}
+                onPress={() => {
+                  dispatch(setCarbon(selectCarbon));
+                  dispatch(postSignup(data));
+                  dispatch(resetForm());
+                  navigation.navigate("TakeTour");
+                }}
                 ButtonText={strings.Next}
-                ButtonColor={'#A8C634'}
-                TextColor={'#E5E5E5'}
-                style={{marginTop: 40}}
+                ButtonColor={"#A8C634"}
+                TextColor={"#E5E5E5"}
+                style={{ marginTop: 40 }}
               />
               <Button
                 isNormal
-                onPress={() => console.log('hello')}
+                onPress={() => console.log("hello")}
                 ButtonText={strings.Skip}
-                TextColor={'#E5E5E5'}
+                TextColor={"#E5E5E5"}
                 style={{
                   marginTop: 5,
-                  shadowColor: '#0000',
+                  shadowColor: "#0000",
                   shadowOffset: {
                     width: 0,
                     height: 0,
                   },
                   shadowOpacity: 0,
                   shadowRadius: 0,
-
                   elevation: 0,
                 }}
-                // ButtonColor={'#201E21'}
               />
             </Container>
           </View>
@@ -115,11 +125,11 @@ const YouCarbon = ({navigation}) => {
 
 const styles = StyleSheet.create({
   CreatAccountStyle: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
     height: height * 1,
   },
   TopItem: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
   },
   SocialView: {
     paddingTop: 20,
@@ -128,24 +138,24 @@ const styles = StyleSheet.create({
   BottomView: {
     // flex: 0.5,
     paddingTop: 10,
-    width: '100%',
+    width: "100%",
   },
   DropDown: {
     marginTop: 10,
   },
   MainSelect: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 20,
     borderRadius: 6,
     marginTop: 10,
   },
   MainSelectText: {
     fontSize: 18,
-    fontFamily: 'Alata-Regular',
-    color: '#434343',
+    fontFamily: "Alata-Regular",
+    color: "#434343",
   },
   PressableText: {
-    borderBottomColor: '#C4C4C4',
+    borderBottomColor: "#C4C4C4",
     borderBottomWidth: 1,
     paddingBottom: 10,
     paddingTop: 10,

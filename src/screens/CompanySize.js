@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
-import { Formik } from "formik";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import * as yup from "yup";
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 // component
 import Container from "../components/container";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -11,23 +13,25 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 
 // data
-import { CA } from "../services/data";
 import { strings } from "../components/strings";
 import InfoLabel from "../components/InfoLabel";
-import Footer from "../components/Footer";
 import { height } from "../services/dimensions";
+import { useDispatch, useSelector } from "react-redux";
+import { setCompanySize } from "../store";
 
 const CompanySize = ({ navigation }) => {
-  const loginValidationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Please enter valid email")
-      .required("Email Address is Required"),
-    password: yup
-      .string()
-      .min(8, ({ min }) => `Password must be at least ${min} characters`)
-      .required("Password is required"),
-  });
+  const [companySize, setCompanysize] = useState([
+    { size: "0-50 ", id: "0" },
+    { size: "50-500 ", id: "50" },
+    { size: "500-5000 ", id: "500" },
+    { size: "Over 500", id: "5000" },
+  ]);
+
+  const dispatch = useDispatch();
+
+  const { company_size } = useSelector((state) => state.account);
+
+  const [selectedSize, setSelectedSize] = useState(company_size);
 
   return (
     <View style={styles.CreatAccountStyle}>
@@ -58,24 +62,33 @@ const CompanySize = ({ navigation }) => {
             <Container isPadding>
               <TextInput isLabel Label={"Number of employees"} />
               <View style={styles.MainSelect}>
-                <Pressable style={styles.PressableText}>
-                  <Text style={styles.MainSelectText}>0-50 </Text>
-                </Pressable>
-                <Pressable style={styles.PressableText}>
-                  <Text style={styles.MainSelectText}>50-500 </Text>
-                </Pressable>
-                <Pressable style={styles.PressableText}>
-                  <Text style={styles.MainSelectText}>500-5000</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.PressableText, { borderBottomWidth: 0 }]}
-                >
-                  <Text style={styles.MainSelectText}>Over 5000</Text>
-                </Pressable>
+                {companySize.map((company, index) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={{
+                        borderBottomColor: "#C4C4C4",
+                        borderBottomWidth: 1,
+                        paddingBottom: 10,
+                        paddingTop: 10,
+                        backgroundColor:
+                          selectedSize.id === company.id ? "#e6e6e6" : "white",
+                      }}
+                      onPress={() => {
+                        setSelectedSize(company);
+                      }}
+                    >
+                      <Text style={styles.MainSelectText}> {company.size}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
               <Button
                 isNormal
-                onPress={() => navigation.navigate("YouCarbon")}
+                onPress={() => {
+                  dispatch(setCompanySize(selectedSize));
+                  navigation.navigate("YouCarbon");
+                }}
                 ButtonText={strings.Next}
                 ButtonColor={"#A8C634"}
                 TextColor={"#E5E5E5"}

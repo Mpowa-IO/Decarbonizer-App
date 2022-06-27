@@ -1,29 +1,30 @@
-import React from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {Formik} from 'formik';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import * as yup from 'yup';
+import React from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { Formik } from "formik";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as yup from "yup";
 // component
-import Container from '../components/container';
-import Breadcrumbs from '../components/Breadcrumbs';
-import Button from '../components/Button';
-import Images from '../assets/images';
-import TextInput from '../components/TextInput';
+import Container from "../components/container";
+import Breadcrumbs from "../components/Breadcrumbs";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 // data
-import {CA} from '../services/data';
-import {strings} from '../components/strings';
-
-const CreatAccount = ({navigation}) => {
+import { CA } from "../services/data";
+import { strings } from "../components/strings";
+import { useDispatch, useSelector } from "react-redux";
+import { setEmail } from "../store";
+const CreatAccount = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { initial_email } = useSelector((state) => state.account);
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
-      .email('Please enter valid email')
-      .required('Email Address is Required'),
-    password: yup
-      .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
+      .email("Please enter valid email")
+      .required("Email Address is Required")
+      .trim(),
   });
+
+  console.log("initial_email at create account", initial_email);
 
   return (
     <KeyboardAwareScrollView style={styles.CreatAccountStyle}>
@@ -45,7 +46,7 @@ const CreatAccount = ({navigation}) => {
                   ButtonColor={item.ButtonColor}
                   ButtonText={item.text}
                   TextColor={item.TextColor}
-                  style={{marginBottom: index === CA.length - 1 ? 0 : 20}}
+                  style={{ marginBottom: index === CA.length - 1 ? 0 : 20 }}
                 />
               );
             })}
@@ -56,34 +57,39 @@ const CreatAccount = ({navigation}) => {
         <View style={styles.BottomView}>
           <Formik
             validationSchema={loginValidationSchema}
-            initialValues={{email: '', password: ''}}
-            onSubmit={console.log('hello')}>
-            {({handleChange, handleBlur, handleSubmit, values, errors}) => (
+            initialValues={{ email: initial_email }}
+            onSubmit={(values) => {
+              dispatch(setEmail(values.email));
+              navigation.navigate("AccountDetails");
+            }}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <Container isPadding>
                 <TextInput
                   isLabel
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
                   value={values.email}
                   placeholder={strings.emailPlaceholder}
-                  placeholderTextColor={'rgba(196, 196, 196, 0.54)'}
+                  placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
                   Label={strings.email}
-                  color={'#FFFFFF'}
-                  keyboardType={'email-address'}
+                  color={"#FFFFFF"}
+                  keyboardType={"email-address"}
                   isInput
+                  defaultValue={initial_email}
                 />
-                {/* {errors.email && (
-                  <Text style={{fontSize: 10, color: 'red'}}>
+                {errors.email && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
                     {errors.email}
                   </Text>
-                )} */}
+                )}
                 <Button
                   isNormal
-                  onPress={() => navigation.navigate('AccountDetails')}
+                  onPress={handleSubmit}
                   ButtonText={strings.SignUpEmail}
-                  ButtonColor={'#666666'}
-                  TextColor={'#E5E5E5'}
-                  style={{marginTop: 20}}
+                  ButtonColor={"#666666"}
+                  TextColor={"#E5E5E5"}
+                  style={{ marginTop: 20 }}
                 />
               </Container>
             )}
@@ -96,11 +102,11 @@ const CreatAccount = ({navigation}) => {
 
 const styles = StyleSheet.create({
   CreatAccountStyle: {
-    backgroundColor: '#201E21',
+    backgroundColor: "#201E21",
     flex: 1,
   },
   TopItem: {
-    backgroundColor: '#313131',
+    backgroundColor: "#313131",
   },
   SocialView: {
     paddingTop: 20,
