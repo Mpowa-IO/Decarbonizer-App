@@ -1,6 +1,6 @@
 import axios from "axios";
-// import { REACT_APP_BASE_URL } from "../../../env";
-REACT_APP_BASE_URL;
+import { REACT_APP_BASE_URL } from "../../../../env";
+
 export async function postAPIFunction(API, headerToken, data) {
   let params = data == undefined ? null : data;
   // console.log("in common api function", API, params);

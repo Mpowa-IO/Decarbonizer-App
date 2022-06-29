@@ -2,6 +2,7 @@ import {
   POST_SIGN_UP,
   POST_SIGN_UP_FAILURE,
   POST_SIGN_UP_SUCCESS,
+  RESET_SIGNUP_STATE,
   SAVE_SIGN_UP,
 } from "./actionTypes";
 
@@ -23,5 +24,7 @@ export const postSignupFailure = (payload) => ({
   type: POST_SIGN_UP_FAILURE,
   payload,
 });
+
+export const resetSingup = () => ({ type: RESET_SIGNUP_STATE });
 
 export const saveSignupSuccess = (payload) => ({ type: SAVE_SIGN_UP, payload });

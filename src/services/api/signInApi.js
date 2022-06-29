@@ -1,14 +1,14 @@
-import { Alert } from "react-native";
 import axios from "axios";
-import { checkNetworkConnction } from "../checkNetwork";
-import { strings } from "../../components/strings";
+import { Alert } from "react-native";
 import { REACT_APP_BASE_URL } from "../../../env";
+import { strings } from "../../components/strings";
+import { checkNetworkConnction } from "../checkNetwork";
 
-export async function signupApi(data) {
+export async function signInApi(data) {
   const conectionStatus = await checkNetworkConnction();
   if (conectionStatus === true) {
     return axios
-      .post(`${REACT_APP_BASE_URL}/auth/credentials/register`, data, {
+      .post(`${REACT_APP_BASE_URL}/auth/credentials/login`, data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

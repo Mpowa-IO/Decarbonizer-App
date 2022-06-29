@@ -1,21 +1,36 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
   ImageBackground,
   ScrollView,
-} from 'react-native';
-import Images from '../assets/images';
-import Breadcrumbs from '../components/Breadcrumbs';
-import Container from '../components/container';
+  ActivityIndicator,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import Images from "../assets/images";
+import Breadcrumbs from "../components/Breadcrumbs";
+import Container from "../components/container";
+import { getMissionContent } from "../store/missionContent";
 
-const DecarbonizerMission = ({navigation}) => {
+const DecarbonizerMission = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const { mission, mission_loading } = useSelector(
+    (state) => state.missionContent
+  );
+
+  console.log("mission_loading", mission_loading);
+
+  React.useEffect(() => {
+    dispatch(getMissionContent());
+  }, []);
+
   return (
     <ImageBackground style={styles.container} source={Images.MISSION_BG}>
       <View>
         <Breadcrumbs
-          BreadText={'Decarbonizer’s mission'}
+          BreadText={mission?.title ? mission?.title : "Decarbonizer’s mission"}
           Leftstyle={-5}
           onPress={() => navigation.goBack()}
         />
@@ -23,22 +38,29 @@ const DecarbonizerMission = ({navigation}) => {
       <View>
         <Container isPadding>
           <ScrollView>
+            {mission_loading ? (
+              <ActivityIndicator size="large" color="#FFFFFF" />
+            ) : null}
             <Text style={styles.TextMain}>
-              Decarbonizer is brought to you by MPOWA - a start up based in the
-              UK, Netherlands, and South Africa. {'\n'}
-              {'\n'}
+              {mission?.body
+                ? mission?.body.replace(/(<([^>]+)>)/gi, "")
+                : null}
+
+              {/* Decarbonizer is brought to you by MPOWA - a start up based in the
+              UK, Netherlands, and South Africa. {"\n"}
+              {"\n"}
               We believe in a world without energy and water scarcity, where the
               sources of both have no negative effect on our children's health
-              or the environment. {'\n'}
-              {'\n'}
+              or the environment. {"\n"}
+              {"\n"}
               We believe economic disparities must be eliminated, and that we
-              must achieve social and environmental resilience.{'\n'}
-              {'\n'}
+              must achieve social and environmental resilience.{"\n"}
+              {"\n"}
               To realise this vision the world needs to harness clean
               technologies and accelerate the decentralisation of energy and
               water provision, in line with UN Strategic Development Goals
               (SDGs).
-              {'\n'}
+              {"\n"} */}
             </Text>
           </ScrollView>
         </Container>
@@ -54,9 +76,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   TextMain: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 18,
-    fontFamily: 'Alata-Regular',
+    fontFamily: "Alata-Regular",
     paddingTop: 10,
     paddingBottom: 10,
   },

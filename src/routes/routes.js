@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // screen
 import SignUp from "../screens/SignUp";
@@ -28,11 +28,40 @@ import Wallet from "../screens/Wallet";
 import PaymentMethod from "../screens/PaymentMethod";
 import UserBottom from "../services/navigation/UserBottom";
 import UserForm from "../screens/UserForm";
+import { getAccessToken } from "../util/getAsyncStorage";
 
-const Routes = () => {
+export const SetRoutes = () => {
   const [initialRoute, setInitialRoute] = React.useState(null);
+  const [initialised, setInitialised] = React.useState(false);
+  const getInitialRoute = async () => {
+    try {
+      const token = await getAccessToken();
+      console.log("token from stpraga", JSON.parse(token));
+      if (token) {
+        setInitialRoute("BottomTab");
+      } else {
+        setInitialRoute("SignUp");
+      }
+    } catch (error) {
+      console.log("error while get the token", error);
+      setInitialRoute("SignUp");
+    } finally {
+      setInitialised(true);
+    }
+  };
 
+  console.log("initialRoute", initialRoute);
+
+  useEffect(() => {
+    getInitialRoute();
+  }, []);
+
+  return initialised && <Routes initialRoute={initialRoute} />;
+};
+
+const Routes = ({ initialRoute }) => {
   const Stack = createNativeStackNavigator();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -42,7 +71,7 @@ const Routes = () => {
           visible: true,
         },
       }}
-      initialRouteName="SignUp"
+      initialRouteName={"SignUp"}
     >
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="CreatAccount" component={CreatAccount} />

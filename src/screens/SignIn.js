@@ -16,8 +16,17 @@ import { strings } from "../components/strings";
 import InfoLabel from "../components/InfoLabel";
 import Footer from "../components/Footer";
 import { height } from "../services/dimensions";
-
+import { useDispatch, useSelector } from "react-redux";
+import { postSignIn } from "../store";
 const SignIn = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const { signInLoading, userTokenInfo } = useSelector(
+    (state) => state.signInReducer
+  );
+
+  console.log("userTokenInfo", userTokenInfo);
+
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -74,8 +83,9 @@ const SignIn = ({ navigation }) => {
             <Formik
               validationSchema={loginValidationSchema}
               initialValues={{ email: "", password: "" }}
-              onSubmit={() => {
-                navigation.navigate("BottomTab");
+              onSubmit={(values) => {
+                // navigation.navigate("BottomTab");
+                dispatch(postSignIn(values));
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
@@ -116,7 +126,7 @@ const SignIn = ({ navigation }) => {
                   <Button
                     isNormal
                     onPress={handleSubmit}
-                    ButtonText={strings.Next}
+                    ButtonText={signInLoading ? "Login..." : strings.Next}
                     ButtonColor={"#A8C634"}
                     TextColor={"#E5E5E5"}
                     style={{ marginTop: 20 }}

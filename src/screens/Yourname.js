@@ -13,30 +13,19 @@ import { strings } from "../components/strings";
 import InfoLabel from "../components/InfoLabel";
 import { height } from "../services/dimensions";
 import { useDispatch, useSelector } from "react-redux";
-import { setNames } from "../store";
+import { postSignup, resetForm, setNames } from "../store";
+import { resetSingup } from "../store/signup/action";
 
 const Yourname = ({ navigation }) => {
   const dispatch = useDispatch();
-
+  const data = useSelector((state) => state.account);
   const { initial_email, email, verifyEmail, password, firstName, lastName } =
     useSelector((state) => state.account);
 
-  console.log(
-    "values at Your Names Screen",
-    email,
-    "verifyEmail",
-    verifyEmail,
-    "password",
-    password,
-    "initial_email",
-    initial_email,
-    "verifyEmail",
-    verifyEmail,
-    "firstName",
-    firstName,
-    "lastName",
-    lastName
-  );
+  const { signUp_loading } = useSelector((state) => state.signupReducer);
+  const { success_message } = useSelector((state) => state.signupReducer);
+  console.log("success_message", success_message);
+
   const loginValidationSchema = yup.object().shape({
     first_name: yup
       .string()
@@ -84,7 +73,13 @@ const Yourname = ({ navigation }) => {
               onSubmit={(values) => {
                 console.log(values);
                 dispatch(setNames(values));
-                navigation.navigate("CompanyDetails");
+                if (success_message) {
+                  navigation.navigate("SignUp");
+                  dispatch(resetSingup);
+                  dispatch(resetForm());
+                } else {
+                  dispatch(postSignup(data));
+                }
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
@@ -125,11 +120,21 @@ const Yourname = ({ navigation }) => {
                   <Button
                     isNormal
                     onPress={handleSubmit}
-                    ButtonText={strings.Next}
+                    ButtonText={signUp_loading ? "Creating Account..." : "Next"}
                     ButtonColor={"#A8C634"}
                     TextColor={"#E5E5E5"}
                     style={{ marginTop: 20 }}
                   />
+                  <Text
+                    style={{
+                      color: "#E5E5E5",
+                      marginTop: 10,
+                    }}
+                  >
+                    {success_message
+                      ? `${success_message} Please Click on mail Link and Login again`
+                      : null}
+                  </Text>
                 </Container>
               )}
             </Formik>
