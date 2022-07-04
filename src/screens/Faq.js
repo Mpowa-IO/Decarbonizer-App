@@ -57,10 +57,11 @@ const Faq = ({ navigation }) => {
   const { faqState, faq_loading } = useSelector((state) => state.faqReducer);
 
   useEffect(() => {
-    dispatch(getFaq());
+    if (faqState.length == 0) {
+      dispatch(getFaq());
+    }
   }, []);
 
-  console.log("faq_loading", faq_loading);
   const [currentIndex, setCurrentIndex] = React.useState(null);
   return (
     <ScrollView style={styles.container}>
@@ -122,7 +123,7 @@ const Faq = ({ navigation }) => {
                         fontFamily: "Alata-Regular",
                       }}
                     >
-                      {item.body}
+                      {item?.body.replace(/(<([^>]+)>)/gi, "")}
                     </Text>
                   </View>
                 )}

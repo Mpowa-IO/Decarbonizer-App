@@ -8,8 +8,10 @@ import {
 import React from "react";
 import Images from "../assets/images";
 import { height, width } from "../services/dimensions";
+import { useSelector } from "react-redux";
 
 export default function PreLunch() {
+  const { dashBoard } = useSelector((state) => state.dashBoardReducer);
   return (
     <View style={{ flexDirection: "row" }}>
       <View style={{ position: "relative", width: width * 0.5 }}>
@@ -40,7 +42,9 @@ export default function PreLunch() {
                     fontFamily: "Alata-Regular",
                   }}
                 >
-                  1
+                  {dashBoard?.prelaunch_funded
+                    ? dashBoard?.prelaunch_funded
+                    : 0}
                 </Text>
               </View>
               <View>
@@ -82,7 +86,7 @@ export default function PreLunch() {
                     fontFamily: "Alata-Regular",
                   }}
                 >
-                  3
+                  {dashBoard?.active_funded ? dashBoard?.active_funded : 0}
                 </Text>
               </View>
               <View>
@@ -96,7 +100,7 @@ export default function PreLunch() {
                     marginLeft: 20,
                   }}
                 >
-                  pre-launch projectS you have funded
+                  live projects you have funded
                 </Text>
               </View>
             </View>
@@ -130,7 +134,7 @@ export default function PreLunch() {
                     fontFamily: "Alata-Regular",
                   }}
                 >
-                  87.1tn
+                  {dashBoard?.total_offset ? dashBoard?.total_offset : 0}tn
                 </Text>
               </View>
               <View>
@@ -183,7 +187,9 @@ export default function PreLunch() {
                     fontFamily: "Alata-Regular",
                   }}
                 >
-                  1
+                  {dashBoard?.prelaunch_watchlist
+                    ? dashBoard?.prelaunch_watchlist
+                    : 0}
                 </Text>
               </View>
               <View>

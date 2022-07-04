@@ -3,19 +3,25 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
-  Linking,
   Image,
   ScrollView,
   Modal,
   TouchableHighlight,
+  ActivityIndicator,
 } from "react-native";
 import Tooltip from "react-native-walkthrough-tooltip";
-import { width } from "../services/dimensions";
+import { height, width } from "../services/dimensions";
 import Images from "../assets/images";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectCountries } from "../store";
 
 const FundingDetails = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { project_countries, project_loading } = useSelector(
+    (state) => state.projectReucer
+  );
+
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [showTip, setTip] = useState(false);
   const [showLeaf, setshowLeaf] = useState(false);
@@ -23,10 +29,9 @@ const FundingDetails = ({ navigation }) => {
   const [showRocket, setshowRocket] = useState(false);
   const [toggle, setToggle] = useState(false);
 
-  console.log(showTip, "showTip");
-  console.log(showLeaf, "showLeaf");
-  console.log(showLocation, "showLocation");
-  console.log(showRocket, "showRocket");
+  React.useEffect(() => {
+    dispatch(getProjectCountries());
+  }, []);
 
   const data = [
     {
@@ -248,33 +253,29 @@ const FundingDetails = ({ navigation }) => {
         return "80%";
     }
   };
-  const displayToolTip = (title, state) => {
+  const displayToolTip = (title, tipScore) => {
     switch (title) {
       case "funded":
-        return (
-          state(true),
-          setshowLeaf(false),
-          setshowLocation(false),
-          setshowRocket(false)
-        );
+        return "funded";
       case "offset":
-        return (
-          state(true),
-          setTip(false),
-          setshowLocation(false),
-          setshowRocket(false)
-        );
+        return "offset";
       case "locations":
-        return (
-          state(true), setshowLeaf(false), setTip(false), setshowRocket(false)
-        );
+        return "locations";
       case "projects launched":
-        return (
-          state(true), setshowLeaf(false), setshowLocation(false), setTip(false)
-        );
+        return "projects launched";
     }
   };
 
+  const [isTipVisibleId, setIsTipVisible] = useState(null);
+
+  const [currentToolTipsText, setCurrentTipText] = useState(
+    "Across all projects Malawi has achieved 44% funding"
+  ); //tooltipe big text
+  const [isTextTipVisible, setIsTextTipVisible] = useState(false); // make tooltip visible
+  const [currentToolTipTitle, setCurrentToolTipTile] = useState(""); // tooltip text
+
+  console.log("project_countries", project_countries);
+  console.log("prev id is", isTipVisibleId);
   return (
     <View
       style={{
@@ -282,8 +283,10 @@ const FundingDetails = ({ navigation }) => {
       }}
     >
       <View>
-        {data?.map((item, index) => {
-          console.log("item", item);
+        {project_loading ? (
+          <ActivityIndicator size="large" color="#FFFFFF" />
+        ) : null}
+        {project_countries?.map((item, index) => {
           return (
             <View
               style={[
@@ -306,18 +309,20 @@ const FundingDetails = ({ navigation }) => {
                   activeOpacity={0.7}
                   style={styles.AccordaionTit}
                   onPress={() => {
-                    setCurrentIndex(index === currentIndex ? null : index),
-                      setshowLeaf(false),
-                      setshowLocation(false),
-                      setTip(false),
-                      setshowRocket(false);
+                    console.log("on press", item?.id);
+                    console.log("prev id is", isTipVisibleId);
+                    setIsTipVisible((prev) =>
+                      prev === item?.id ? null : item?.id
+                    );
                   }}
                 >
                   <View>
                     <View>
                       <View>
                         <Image
-                          source={item.title[0].image}
+                          source={{
+                            uri: item?.images?.image_url,
+                          }}
                           style={{ height: "100%" }}
                         />
                       </View>
@@ -343,7 +348,12 @@ const FundingDetails = ({ navigation }) => {
                         }}
                       >
                         <View>
-                          <Image source={item.title[0].Flag} />
+                          <Image
+                            source={{
+                              uri: item?.images.flag_url,
+                            }}
+                            style={{ height: 35, width: 45 }}
+                          />
                         </View>
                         <View style={{ marginLeft: 20 }}>
                           <Text
@@ -353,7 +363,7 @@ const FundingDetails = ({ navigation }) => {
                               fontSize: 21,
                             }}
                           >
-                            {item.title[0].Name}
+                            {item?.name}
                           </Text>
                         </View>
                       </View>
@@ -368,7 +378,9 @@ const FundingDetails = ({ navigation }) => {
                               fontFamily: "Alata-Regular",
                             }}
                           >
-                            {item.title[0].NumberData}
+                            {item?.projects_in_incubation
+                              ? item?.projects_in_incubation
+                              : null}
                           </Text>
                         </View>
                         <View style={{ marginBottom: 10, marginTop: 10 }}>
@@ -381,7 +393,7 @@ const FundingDetails = ({ navigation }) => {
                               fontSize: 14,
                             }}
                           >
-                            {item.title[0].Stage}
+                            projects at funding stage
                           </Text>
                         </View>
                       </View>
@@ -397,7 +409,7 @@ const FundingDetails = ({ navigation }) => {
                               fontSize: 14,
                             }}
                           >
-                            {item.title[0].Tonnes}
+                            Tonnes of CO2 offset pa. (est)
                           </Text>
                         </View>
                         <View>
@@ -408,7 +420,7 @@ const FundingDetails = ({ navigation }) => {
                               fontFamily: "Alata-Regular",
                             }}
                           >
-                            {item.title[0].TonnesNumber}
+                            {item?.co2_offset_annum}
                           </Text>
                         </View>
                       </View>
@@ -417,7 +429,7 @@ const FundingDetails = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
 
-              {index === currentIndex && (
+              {isTipVisibleId === item?.id && (
                 <View
                   style={[styles.AccordaionContent, { position: "relative" }]}
                 >
@@ -442,7 +454,7 @@ const FundingDetails = ({ navigation }) => {
                             fontSize: 24,
                           }}
                         >
-                          {item.Content[0].KeyFact}
+                          Key Facts - {item?.name}
                         </Text>
                       </View>
                       <View
@@ -453,222 +465,392 @@ const FundingDetails = ({ navigation }) => {
                           marginTop: 20,
                         }}
                       >
-                        {item?.Content[0]?.iconContent?.map((item, index) => {
-                          //console.log(item, 'GreenTit is it');
-                          return (
-                            <>
-                              <View>
-                                <TouchableOpacity
-                                  style={[styles.button]}
-                                  onPress={() =>
-                                    displayToolTip(item.Title, item.ThisState)
-                                  }
-                                >
-                                  <View
-                                    style={{
-                                      alignItems: "center",
-                                      padding: 5,
-                                      width: 71,
-                                      flexDirection: "column",
-                                    }}
-                                  >
-                                    <View style={{ height: 26 }}>
-                                      <Image source={item.image} />
-                                    </View>
-                                    <View
-                                      style={{
-                                        marginBottom: 5,
-                                      }}
-                                    >
-                                      <Text
-                                        style={{
-                                          fontSize: 14,
-                                          fontFamily: "Alata-Regular",
-                                          color: "#fff",
-                                        }}
-                                      >
-                                        {item.Score}
-                                      </Text>
-                                    </View>
-                                    <View>
-                                      <Text
-                                        style={{
-                                          fontSize: 14,
-                                          fontFamily: "Alata-Regular",
-                                          color: "#fff",
-                                          height: 70,
-                                          width: 64,
-                                          textAlign: "center",
-                                        }}
-                                      >
-                                        {item.Title}
-                                      </Text>
-                                    </View>
-                                  </View>
-                                </TouchableOpacity>
-                              </View>
-                            </>
-                          );
-                        })}
-                      </View>
-                    </View>
-                  </View>
-
-                  {item?.Content[0]?.iconContent?.map((item, index) => {
-                    console.log("icon content", item);
-                    return (
-                      item.state && (
-                        <>
-                          <View
-                            style={{
-                              backgroundColor: "#A8C634",
-                              width: "100%",
-                              position: "absolute",
-                              height: "100%",
-                              maxHeight: 100,
-                              alignItems: "center",
-                              top: "25%",
-                              zIndex: 1,
-                              justifyContent: "center",
+                        <View>
+                          <TouchableOpacity
+                            style={[styles.button]}
+                            onPress={() => {
+                              setIsTextTipVisible(true);
+                              setCurrentToolTipTile("funded");
+                              setCurrentTipText("");
                             }}
                           >
                             <View
                               style={{
-                                position: "absolute",
-                                top: -20,
-                                left: displayLeft(item.Title),
+                                alignItems: "center",
+                                padding: 5,
+                                width: 71,
+                                flexDirection: "column",
                               }}
                             >
-                              <Image
-                                source={Images.TOOLTIP_SHAPE}
-                                style={{ width: 84 }}
-                              />
-                            </View>
-
-                            <View
-                              style={{
-                                position: "absolute",
-                                alignItems: "flex-end",
-                                width: "100%",
-                                height: "100%",
-                                zIndex: 99,
-                                right: 10,
-                                top: 10,
-                              }}
-                            >
-                              <View>
-                                <TouchableOpacity
-                                  onPress={() => item.ThisState(false)}
+                              <View style={{ height: 26 }}>
+                                <Image source={Images.KEY_PIGGY} />
+                              </View>
+                              <View
+                                style={{
+                                  marginBottom: 5,
+                                }}
+                              >
+                                <Text
                                   style={{
-                                    width: 50,
-                                    height: 50,
-                                    alignItems: "flex-end",
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
                                   }}
                                 >
-                                  <Image
-                                    source={Images.CLOSE}
-                                    style={{ width: 10, height: 10 }}
-                                  />
-                                </TouchableOpacity>
+                                  {item?.key_facts?.funded_percentage}
+                                </Text>
                               </View>
-                            </View>
-                            <View>
                               <View>
                                 <Text
                                   style={{
                                     fontSize: 14,
-                                    color: "#000",
                                     fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                    height: 70,
+                                    width: 64,
+                                    textAlign: "center",
                                   }}
                                 >
-                                  {item.TooltipText}
+                                  funded
                                 </Text>
                               </View>
                             </View>
+                          </TouchableOpacity>
+                        </View>
+                        <View>
+                          <TouchableOpacity
+                            style={[styles.button, { position: "relative" }]}
+                            onPress={() => {
+                              setCurrentToolTipTile("offset");
+                              setIsTextTipVisible(true);
+                            }}
+                          >
+                            <View
+                              style={{
+                                alignItems: "center",
+                                padding: 5,
+                                width: 71,
+                                flexDirection: "column",
+                              }}
+                            >
+                              <View style={{ height: 26 }}>
+                                <Image source={Images.KEY_LEAF} />
+                              </View>
+                              <View
+                                style={{
+                                  marginBottom: 5,
+                                }}
+                              >
+                                <Text
+                                  style={{
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                  }}
+                                >
+                                  {item?.key_facts?.co2_offset_overall}t
+                                  {/* {item.Score} */}
+                                </Text>
+                              </View>
+                              <View>
+                                <Text
+                                  style={{
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                    height: 70,
+                                    width: 64,
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  offset
+                                </Text>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* leaft tip */}
+
+                        <View>
+                          <TouchableOpacity
+                            style={[styles.button]}
+                            onPress={() => {
+                              setCurrentToolTipTile("locations");
+                              setIsTextTipVisible(true);
+                            }}
+                          >
+                            <View
+                              style={{
+                                alignItems: "center",
+                                padding: 5,
+                                width: 71,
+                                flexDirection: "column",
+                              }}
+                            >
+                              <View style={{ height: 26 }}>
+                                <Image source={Images.KEY_LOCATION} />
+                              </View>
+                              <View
+                                style={{
+                                  marginBottom: 5,
+                                }}
+                              >
+                                <Text
+                                  style={{
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                  }}
+                                >
+                                  {item?.key_facts?.location_count}
+                                  {/* {item.Score} */}
+                                </Text>
+                              </View>
+                              <View>
+                                <Text
+                                  style={{
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                    height: 70,
+                                    width: 64,
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  locations
+                                </Text>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+                        <View>
+                          <TouchableOpacity
+                            style={[styles.button]}
+                            onPress={() => {
+                              setCurrentToolTipTile("projects launched");
+                              setIsTextTipVisible(true);
+                            }}
+                          >
+                            <View
+                              style={{
+                                alignItems: "center",
+                                padding: 5,
+                                width: 71,
+                                flexDirection: "column",
+                              }}
+                            >
+                              <View style={{ height: 26 }}>
+                                <Image source={Images.KEY_ROCKET} />
+                              </View>
+                              <View
+                                style={{
+                                  marginBottom: 5,
+                                }}
+                              >
+                                <Text
+                                  style={{
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                  }}
+                                >
+                                  {item?.key_facts?.completed_projects}
+                                  {/* {item.Score} */}
+                                </Text>
+                              </View>
+                              <View>
+                                <Text
+                                  style={{
+                                    fontSize: 14,
+                                    fontFamily: "Alata-Regular",
+                                    color: "#fff",
+                                    height: 70,
+                                    width: 64,
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  projects launched
+                                </Text>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+
+                  {isTextTipVisible && (
+                    <View
+                      style={{
+                        backgroundColor: "#A8C634",
+                        width: "100%",
+                        position: "absolute",
+                        height: "100%",
+                        maxHeight: 100,
+                        alignItems: "center",
+                        top: "25%",
+                        zIndex: 1,
+                        justifyContent: "center",
+                      }}
+                      onPress={() => navigation.navigate("ProjectDetails")}
+                    >
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: -20,
+                          left: displayLeft(currentToolTipTitle),
+                        }}
+                      >
+                        <Image
+                          source={Images.TOOLTIP_SHAPE}
+                          style={{ width: 84 }}
+                        />
+                      </View>
+
+                      <View
+                        style={{
+                          position: "absolute",
+                          alignItems: "flex-end",
+                          width: "100%",
+                          height: "100%",
+                          zIndex: 99,
+                          right: 10,
+                          top: 10,
+                        }}
+                      >
+                        <View>
+                          <TouchableOpacity
+                            onPress={() => {
+                              setIsTextTipVisible(false);
+                            }}
+                            style={{
+                              width: 50,
+                              height: 50,
+                              alignItems: "flex-end",
+                            }}
+                          >
+                            <Image
+                              source={Images.CLOSE}
+                              style={{ width: 10, height: 10 }}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                      <View>
+                        <View>
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              color: "#000",
+                              fontFamily: "Alata-Regular",
+                            }}
+                          >
+                            {`Across all Projects ${item?.name} has achieved `}
+                            {currentToolTipTitle === "funded"
+                              ? item?.key_facts?.funded_percentage
+                              : null}
+                            {currentToolTipTitle === "offset"
+                              ? `${item?.key_facts?.co2_offset_overall}t`
+                              : null}
+                            {currentToolTipTitle === "locations"
+                              ? `${item?.key_facts?.location_count}`
+                              : null}
+                            {currentToolTipTitle === "projects launched"
+                              ? `${item?.key_facts?.completed_projects}`
+                              : null}
+                            {`  ${displayToolTip(currentToolTipTitle)}`}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      position: "relative",
+                      height: height * 0.75,
+                    }}
+                  >
+                    {item?.projects.map((project, index) => {
+                      return (
+                        <>
+                          <TouchableOpacity
+                            key={project?.id}
+                            activeOpacity={0.7}
+                            onPress={() =>
+                              navigation.navigate("TreesProject", {
+                                projectId: project?.id,
+                              })
+                            }
+                            style={{
+                              position: "relative",
+                              height: 140,
+                              width: 140,
+                            }}
+                          >
+                            <View>
+                              <Image
+                                source={Images.GREEN_BOX}
+                                style={{ height: "100%" }}
+                              />
+                            </View>
+                            <View style={{ position: "absolute", top: 0 }}>
+                              <Text
+                                style={{
+                                  color: "#fff",
+                                  fontSize: 22,
+                                  fontFamily: "Alata-Regular",
+                                  paddingLeft: 10,
+                                  paddingTop: 10,
+                                }}
+                              >
+                                {project?.name}
+                                {project?.location_name}
+                              </Text>
+                            </View>
+                          </TouchableOpacity>
+                          <View
+                            style={{
+                              position: "absolute",
+                              zIndex: 99,
+                              height: 400,
+                              width: "100%",
+                              bottom: 0,
+                            }}
+                          >
+                            <View>
+                              <Image
+                                source={{ uri: project?.hero?.image_url }}
+                                style={{
+                                  backgroundColor: "red",
+                                  height: height * 1,
+                                }}
+                              />
+                            </View>
+                            <View
+                              style={{
+                                position: "absolute",
+                                width: width * 0.5,
+                                right: width * -0.1,
+                                top: height * 0.15,
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  color: "#fff",
+                                  fontSize: 24,
+                                  fontFamily: "Alata-Regular",
+                                  textAlign: "left",
+                                }}
+                              >
+                                {project?.hero?.name}
+                              </Text>
+                            </View>
                           </View>
                         </>
-                      )
-                    );
-                  })}
-
-                  <View style={{ flexDirection: "row" }}>
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      onPress={() => navigation.navigate("ProjectDetails")}
-                      style={{ position: "relative", height: 138, width: 138 }}
-                    >
-                      <View>
-                        <Image source={Images.GREEN_BOX} />
-                      </View>
-                      <View style={{ position: "absolute", top: 0 }}>
-                        <Text
-                          style={{
-                            color: "#fff",
-                            fontSize: 24,
-                            fontFamily: "Alata-Regular",
-                            paddingLeft: 10,
-                            paddingTop: 10,
-                          }}
-                        >
-                          Project 1 - Proin Gravida
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      style={{
-                        position: "relative",
-                        height: 138,
-                        width: 138,
-                        paddingBottom: 20,
-                      }}
-                    >
-                      <View>
-                        <Image source={Images.GREEN_IMG_BLACK} />
-                      </View>
-                      <View style={{ position: "absolute", top: 0 }}>
-                        <Text
-                          style={{
-                            color: "#fff",
-                            fontSize: 24,
-                            fontFamily: "Alata-Regular",
-                            paddingLeft: 10,
-                            paddingTop: 10,
-                          }}
-                        >
-                          Project 2 - Proin Gravida
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      style={{
-                        position: "relative",
-                        height: 138,
-                        width: 138,
-                        paddingBottom: 20,
-                      }}
-                    >
-                      <View>
-                        <Image source={Images.GREEN_BOX} />
-                      </View>
-                      <View style={{ position: "absolute", top: 0 }}>
-                        <Text
-                          style={{
-                            color: "#fff",
-                            fontSize: 24,
-                            fontFamily: "Alata-Regular",
-                            paddingLeft: 10,
-                            paddingTop: 10,
-                          }}
-                        >
-                          Project 3 - Proin Gravida
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View>
-                    <Image source={Images.VIDEO_BG} />
+                      );
+                    })}
                   </View>
                 </View>
               )}
@@ -676,7 +858,7 @@ const FundingDetails = ({ navigation }) => {
           );
         })}
       </View>
-      <View style={{ height: 80 }} />
+      {/* <View style={{ height: 80 }} /> */}
     </View>
   );
 };

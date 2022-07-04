@@ -16,14 +16,14 @@ function* howItWokrGenerator() {
     }
   } catch (error) {
     if (error.response) {
-      Alert.alert("Login Failed", error.response.data.message);
+      Alert.alert(error.response.data.message);
       console.log("error in signup from with api", error.response);
       yield put(getHowItWrokFailuire(error.response.data));
     }
     // The client never received a response, and the request was never left
     else if (error.request) {
-      console.log("errro  in signup request", error.request);
-      Alert.alert(strings.SignUpFailed, error?.request?.data?.message);
+      console.log(error.request);
+      Alert.alert(error?.request?.data?.message);
       yield put(getHowItWrokFailuire(error.request.data));
     } else {
     }

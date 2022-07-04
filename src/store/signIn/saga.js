@@ -30,7 +30,7 @@ function* signIn(action) {
     // The client never received a response, and the request was never left
     else if (error.request) {
       console.log("errro  in signup request", error.request);
-      Alert.alert(strings.SignUpFailed, error?.request?.data?.message);
+      Alert.alert(strings.SignUpFailed, error?.response?.data?.message);
     } else {
       console.log("got some other error", error.message);
     }

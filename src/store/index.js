@@ -4,3 +4,7 @@ export * from "./signIn";
 export * from "./faq";
 export * from "./howItWork";
 export * from "./missionContent";
+export * from "./dashboard";
+export * from "./projectCountries";
+export * from "./singleProject";
+export * from "./landing";

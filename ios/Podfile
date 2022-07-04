@@ -21,6 +21,10 @@ target 'mpower' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
   target 'mpowerTests' do
     inherit! :complete
     # Pods for testing

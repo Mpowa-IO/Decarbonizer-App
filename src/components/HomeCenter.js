@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Platform } from "react-native";
 import React from "react";
+import { height } from "../services/dimensions";
 
 const HomeCenter = ({ navigation }) => {
   return (
@@ -8,6 +9,7 @@ const HomeCenter = ({ navigation }) => {
         flexDirection: "row",
         justifyContent: "center",
         alignContent: "center",
+        height: Platform.OS === "ios" ? height * 0.2 : null,
       }}
     >
       <View

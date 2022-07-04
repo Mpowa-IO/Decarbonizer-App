@@ -90,8 +90,6 @@ const SignIn = ({ navigation }) => {
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                 <Container isPadding>
-                  {console.log("values", values)}
-                  {console.log("errors", errors)}
                   <TextInput
                     isLabel
                     onChangeText={handleChange("email")}

@@ -11,12 +11,24 @@ import UserText from "./UserText";
 import Container from "../container";
 import { height } from "../../services/dimensions";
 import Images from "../../assets/images";
+import UserFormTop from "./UserFormTop";
+import UserFormDetails from "./UserFormDetails";
 
-const Step1 = () => {
+const Step1 = (props) => {
+  const { onPress } = props;
+
+  console.log(props, "this is props");
+
   return (
     <View>
+      <View style={{ marginTop: height * 0.05 }}>
+        <UserFormTop title={"User registration step 1"} isOne {...props} />
+      </View>
+      <View>
+        <UserFormDetails title={"Please enter user information below."} />
+      </View>
       <ScrollView>
-        <Container isPadding={true}>
+        <Container isPadding={true} style={{ marginTop: height * 0.03 }}>
           <View>
             <UserText Label={"First name *"} keyboardType={"default"} />
           </View>
@@ -42,16 +54,17 @@ const Step1 = () => {
             </Text>
           </View>
         </Container>
+
         <View
           style={{
             backgroundColor: "#323232",
-            height: height * 0.5,
+            height: height * 0.3,
             paddingLeft: 15,
             paddingRight: 15,
             paddingTop: 15,
           }}
         >
-          <TouchableOpacity style={{ height: height * 0.08 }}>
+          <TouchableOpacity style={{ height: height * 0.08 }} onPress={onPress}>
             <ImageBackground
               source={Images.BUTTON_GREEN}
               style={{
@@ -72,7 +85,7 @@ const Step1 = () => {
             </ImageBackground>
           </TouchableOpacity>
         </View>
-        <View style={{ paddingBottom: 200 }} />
+        <View style={{ paddingBottom: height * 0.8 }} />
       </ScrollView>
     </View>
   );

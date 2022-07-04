@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Images from "../../assets/images";
 import { height, width } from "../../services/dimensions";
 
-export default function UserBottom() {
+export default function UserBottom({ navigation }) {
   return (
     <View>
       <View
@@ -40,7 +40,7 @@ export default function UserBottom() {
             Users with devices
           </Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("UserForm")}>
           <View
             style={{
               width: width * 0.5,

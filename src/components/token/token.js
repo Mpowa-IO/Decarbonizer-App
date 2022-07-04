@@ -102,7 +102,10 @@ const token = () => {
             <View>
               <View>
                 <TextInput
-                  style={{ color: "#000" }}
+                  style={{
+                    color: "#000",
+                    height: "100%",
+                  }}
                   onChangeText={onChangeNumber}
                   value={number}
                   placeholder=""

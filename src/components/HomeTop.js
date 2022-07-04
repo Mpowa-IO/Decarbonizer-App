@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -7,115 +7,129 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
+  Platform,
+} from "react-native";
 
-import Images from '../assets/images';
-import {height, width} from '../services/dimensions';
+import Images from "../assets/images";
+import { height, width } from "../services/dimensions";
 
-export default function HomeTop({navigation}) {
+export default function HomeTop({ navigation }) {
   return (
     <View>
       <ImageBackground
         source={Images.HOME_BG}
         resizeMode="cover"
-        style={styles.image}>
-        <View style={styles.LogoMain}>
+        style={styles.image}
+      >
+        <View style={[styles.LogoMain]}>
           <View
             // source={Images.HOME_TRAN}
             // resizeMode="cover"
-            style={styles.logoBg}>
+            style={[styles.logoBg]}
+          >
             <Image source={Images.HOME_LOGO} />
           </View>
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <View
             style={{
-              width: '67%',
-              height: '100%',
-              justifyContent: 'center',
-            }}>
+              width: "67%",
+              justifyContent: "center",
+            }}
+          >
             <View
               style={{
-                width: '90%',
-                backgroundColor: 'rgba(32, 30, 33, 0.7)',
+                width: "90%",
+                backgroundColor: "rgba(32, 30, 33, 0.7)",
                 padding: 20,
-              }}>
+              }}
+            >
               <Text
                 style={{
                   fontSize: 22,
-                  color: '#fff',
-                  fontFamily: 'Alata-Regular',
-                  textTransform: 'uppercase',
-                }}>
+                  color: "#fff",
+                  fontFamily: "Alata-Regular",
+                  textTransform: "uppercase",
+                }}
+              >
                 We are democratizing the
-                <Text style={{color: '#A8C634'}}>clean tech</Text> revolution
+                <Text style={{ color: "#A8C634" }}>clean tech</Text> revolution
               </Text>
-              <View style={{marginTop: 10}}>
+              <View style={{ marginTop: 10 }}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('DecarbonizerMission')}>
+                  onPress={() => navigation.navigate("DecarbonizerMission")}
+                >
                   <Text
                     style={{
-                      color: '#FFFFFF',
-                      fontFamily: 'Alata-Regular',
+                      color: "#FFFFFF",
+                      fontFamily: "Alata-Regular",
                       fontSize: 18,
-                    }}>
-                    Our mission {'\b'} 〉
+                    }}
+                  >
+                    Our mission {"\b"} 〉
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-          <View style={{width: '33%', height: '100%'}}>
+          <View style={{ width: "33%", height: "100%" }}>
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={() => navigation.navigate('FundingStage')}>
+              onPress={() => navigation.navigate("FundingStage")}
+            >
               <View
                 style={{
-                  backgroundColor: 'rgba(32, 30, 33, 0.7)',
+                  backgroundColor: "rgba(32, 30, 33, 0.7)",
                   // height: '50%',
-                }}>
+                }}
+              >
                 <Text
                   style={{
-                    color: '#fff',
+                    color: "#fff",
                     fontSize: 12,
-                    textAlign: 'right',
+                    textAlign: "right",
                     paddingTop: 10,
-                    fontFamily: 'Alata-Regular',
+                    fontFamily: "Alata-Regular",
                     paddingRight: 5,
-                  }}>
+                  }}
+                >
                   Combined 5722t CO2 offset
                 </Text>
-                <View style={{paddingLeft: 10}}>
+                <View style={{ paddingLeft: 10 }}>
                   <Text
                     style={{
-                      color: '#A8C634',
+                      color: "#A8C634",
                       fontSize: 30,
-                      fontFamily: 'Alata-Regular',
-                    }}>
+                      fontFamily: "Alata-Regular",
+                    }}
+                  >
                     37
                   </Text>
                   <View>
                     <Text
                       style={{
-                        color: '#fff',
+                        color: "#fff",
                         fontSize: 18,
-                        textTransform: 'uppercase',
-                        fontFamily: 'Alata-Regular',
-                      }}>
+                        textTransform: "uppercase",
+                        fontFamily: "Alata-Regular",
+                      }}
+                    >
                       Projects
                     </Text>
                     <Text
                       style={{
-                        color: '#fff',
-                        fontFamily: 'Alata-Regular',
+                        color: "#fff",
+                        fontFamily: "Alata-Regular",
                         paddingBottom: 5,
-                      }}>
-                      all categories
+                      }}
+                    >
+                      In incubation
                     </Text>
                   </View>
                 </View>
@@ -123,39 +137,47 @@ export default function HomeTop({navigation}) {
             </TouchableOpacity>
             <View
               style={{
-                backgroundColor: 'rgba(32, 30, 33, 0.6)',
+                backgroundColor: "rgba(32, 30, 33, 0.6)",
                 // height: '50%',
-              }}>
+              }}
+            >
               <Text
                 style={{
-                  color: '#fff',
+                  color: "#fff",
                   fontSize: 12,
-                  textAlign: 'right',
+                  textAlign: "right",
                   paddingTop: 10,
-                  fontFamily: 'Alata-Regular',
+                  fontFamily: "Alata-Regular",
                   paddingRight: 5,
-                }}>
-                Actual 2143t CO2 offset
-              </Text>
-              <View style={{paddingLeft: 10}}>
+                }}
+              ></Text>
+              <View style={{ paddingLeft: 10 }}>
                 <Text
                   style={{
-                    color: '#A8C634',
+                    color: "#A8C634",
                     fontSize: 30,
-                    fontFamily: 'Alata-Regular',
-                  }}>
-                  23
+                    fontFamily: "Alata-Regular",
+                  }}
+                >
+                  5
                 </Text>
                 <View>
                   <Text
                     style={{
-                      color: '#fff',
+                      color: "#fff",
                       fontSize: 18,
-                      textTransform: 'uppercase',
-                      fontFamily: 'Alata-Regular',
+                      fontFamily: "Alata-Regular",
                       paddingBottom: 5,
-                    }}>
-                    Projects Launched
+                    }}
+                  >
+                    HERO {"\n"}
+                    <Text
+                      style={{
+                        fontSize: 14,
+                      }}
+                    >
+                      {`What's a hero?`}
+                    </Text>
                   </Text>
                 </View>
               </View>
@@ -169,17 +191,17 @@ export default function HomeTop({navigation}) {
 
 const styles = StyleSheet.create({
   image: {
-    height: '100%',
+    height: "100%",
   },
   logoBg: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(32, 30, 33, 0.7)',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(32, 30, 33, 0.7)",
   },
   LogoMain: {
-    height: 128,
-    width: '100%',
+    height: Platform.OS === "ios" ? height * 0.17 : height * 0.17,
+    width: "100%",
   },
 });

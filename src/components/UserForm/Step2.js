@@ -11,33 +11,47 @@ import UserText from "./UserText";
 import Container from "../container";
 import { height } from "../../services/dimensions";
 import Images from "../../assets/images";
+import UserFormTop from "./UserFormTop";
+import UserFormDetails from "./UserFormDetails";
 
-const Step2 = () => {
+const Step2 = (props) => {
+  const { onPress, navigation } = props;
+
   return (
-    <View>
+    <View style={{ backgroundColor: "#181818", flex: 1 }}>
+      <View style={{ marginTop: height * 0.05 }}>
+        <UserFormTop title={"User registration step 2"} isTwo {...props} />
+      </View>
+      <View>
+        <UserFormDetails title={"Please enter user information below."} />
+      </View>
       <ScrollView>
-        <Container isPadding={true}>
+        <Container isPadding={true} style={{ marginTop: height * 0.03 }}>
           <View>
             <UserText Label={"Email address *"} keyboardType={"default"} />
           </View>
-          <View style={{ marginTop: height * 0.0 }}>
+          <View style={{ marginTop: height * 0.02 }}>
             <UserText
               Label={"Verify email address *"}
               keyboardType={"default"}
             />
           </View>
         </Container>
+
         <View
           style={{
             backgroundColor: "#323232",
-            height: height * 0.5,
+            height: height * 0.3,
             paddingLeft: 15,
             paddingRight: 15,
-            paddingTop: 30,
-            marginTop: 30,
+            paddingTop: 15,
+            marginTop: height * 0.1,
           }}
         >
-          <TouchableOpacity style={{ height: height * 0.08 }}>
+          <TouchableOpacity
+            style={{ height: height * 0.08 }}
+            onPress={() => navigation.navigate("Step3")}
+          >
             <ImageBackground
               source={Images.BUTTON_GREEN}
               style={{
@@ -58,7 +72,7 @@ const Step2 = () => {
             </ImageBackground>
           </TouchableOpacity>
         </View>
-        <View style={{ paddingBottom: 200 }} />
+        {/* <View style={{ paddingBottom: height * 0.1 }} /> */}
       </ScrollView>
     </View>
   );

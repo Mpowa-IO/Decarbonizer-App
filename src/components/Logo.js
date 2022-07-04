@@ -1,15 +1,19 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import Images from "../assets/images";
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import Images from '../assets/images';
+import { height } from '../services/dimensions';
 
-export default function Logo({ navigation, isArrow }) {
+export default function Logo({ navigation, isArrow, backgroundColor }) {
   return (
-    <View style={styles.logoContainer}>
+    <View
+      style={[
+        styles.logoContainer,
+        { marginTop: Platform.OS === 'ios' ? height * 0.04 : null },
+        { backgroundColor: backgroundColor },
+      ]}
+    >
       {isArrow && (
-        <TouchableOpacity
-          style={styles.ButtonCher}
-          onPress={() => navigation.goBack()}
-        >
+        <TouchableOpacity style={styles.ButtonCher} onPress={() => navigation.goBack()}>
           <Image source={Images.LEFT_ARROW} style={styles.logo} />
         </TouchableOpacity>
       )}
@@ -22,13 +26,13 @@ export default function Logo({ navigation, isArrow }) {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    backgroundColor: "#181818",
-    alignItems: "center",
+    backgroundColor: '#181818',
+    alignItems: 'center',
     padding: 20,
-    position: "relative",
+    position: 'relative',
   },
   ButtonCher: {
-    position: "absolute",
+    position: 'absolute',
     left: 10,
     top: 30,
   },

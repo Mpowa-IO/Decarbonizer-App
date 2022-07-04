@@ -20,10 +20,12 @@ const DecarbonizerMission = ({ navigation }) => {
     (state) => state.missionContent
   );
 
-  console.log("mission_loading", mission_loading);
+  console.log("mission_loading", mission);
 
   React.useEffect(() => {
-    dispatch(getMissionContent());
+    if (Object.keys(mission).length === 0) {
+      dispatch(getMissionContent());
+    }
   }, []);
 
   return (

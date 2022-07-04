@@ -42,7 +42,14 @@ export default function CashCard({ navigation }) {
           start={{ x: 0, y: 0 }}
           //   end={{ x: 1, y: 0 }}
           colors={["#1B1B1B", "#323232"]}
-          style={{ borderTopLeftRadius: 30, borderBottomLeftRadius: 30 }}
+          style={{
+            borderTopLeftRadius: 30,
+            borderBottomLeftRadius: 30,
+            borderTopStartRadius: 30,
+            borderBottomStartRadius: 30,
+            overflow: "hidden",
+            zIndex: -1,
+          }}
         >
           <View
             style={{
@@ -76,47 +83,56 @@ export default function CashCard({ navigation }) {
                 $250
               </Text>
             </View>
-            <View style={{ borderRadius: 10, alignItems: "flex-end" }}>
-              <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                containerStyle={{ width: 112, marginRight: 10 }}
-                style={{
-                  backgroundColor: "#fafafa",
-                  borderRadius: 50,
-                  borderTopStartRadius: 50,
-                  borderTopEndRadius: 50,
-                  borderBottomStartRadius: 50,
-                  borderBottomEndRadius: 50,
-                  borderWidth: 1,
-                }}
-                dropDownContainerStyle={{
-                  borderRadius: 10,
-                  width: 112,
-                  marginTop: height * -0.065,
-                  height: height * 0.15,
-                  position: "absolute",
-                  borderTopStartRadius: 20,
-                  borderTopEndRadius: 20,
-                  borderBottomStartRadius: 20,
-                  borderBottomEndRadius: 20,
-                }}
-                textStyle={{
-                  fontFamily: "Alata-Regular",
-                  color: "#434343",
-                }}
-                arrowIconStyle={{
-                  tintColor: "#000",
-                }}
-                placeholder="USD $"
-              />
-            </View>
           </View>
         </LinearGradient>
+        <View
+          style={{
+            borderRadius: 10,
+            alignItems: "flex-end",
+            position: "absolute",
+            left: width * 0.3,
+            top: height * 0.12,
+            zIndex: 99999,
+          }}
+        >
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            containerStyle={{ width: 112, marginRight: 10 }}
+            style={{
+              backgroundColor: "#fafafa",
+              borderRadius: 50,
+              borderTopStartRadius: 50,
+              borderTopEndRadius: 50,
+              borderBottomStartRadius: 50,
+              borderBottomEndRadius: 50,
+              borderWidth: 1,
+            }}
+            dropDownContainerStyle={{
+              borderRadius: 10,
+              width: 112,
+              marginTop: height * -0.065,
+              height: height * 0.1,
+              position: "absolute",
+              borderTopStartRadius: 20,
+              borderTopEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomEndRadius: 20,
+            }}
+            textStyle={{
+              fontFamily: "Alata-Regular",
+              color: "#434343",
+            }}
+            arrowIconStyle={{
+              tintColor: "#000",
+            }}
+            placeholder="USD $"
+          />
+        </View>
       </View>
     </View>
   );

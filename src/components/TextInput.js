@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Images from "../assets/images";
+import { height } from "../services/dimensions";
 
 const TextInputField = (props) => {
   const {
@@ -21,7 +22,6 @@ const TextInputField = (props) => {
     style,
     color,
     isLabel,
-    defaultValue,
     isPassword,
     isInput,
     isDropDown,
@@ -40,7 +40,6 @@ const TextInputField = (props) => {
             onChangeText={onChangeText}
             onBlur={onBlur}
             value={TextValue}
-            defaultValue={defaultValue}
             placeholder={placeholder}
             placeholderTextColor={placeholderTextColor}
             keyboardType={keyboardType}
@@ -65,6 +64,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#253858",
     borderRadius: 2,
     paddingLeft: 20,
+    // height: height * 0.05,
+    // height: height * 0.05,
   },
   LabelText: {
     color: "#FFFFFF",

@@ -28,7 +28,14 @@ import Wallet from "../screens/Wallet";
 import PaymentMethod from "../screens/PaymentMethod";
 import UserBottom from "../services/navigation/UserBottom";
 import UserForm from "../screens/UserForm";
+import TreesProject from "../screens/TreesProject";
+import Exploreplans from "../screens/Exploreplans";
+
 import { getAccessToken } from "../util/getAsyncStorage";
+import Step2 from "../components/UserForm/Step2";
+import Step3 from "../components/UserForm/Step3";
+import Step4 from "../components/UserForm/Step4";
+import OurPlan from "../screens/OurPlan";
 
 export const SetRoutes = () => {
   const [initialRoute, setInitialRoute] = React.useState(null);
@@ -36,7 +43,7 @@ export const SetRoutes = () => {
   const getInitialRoute = async () => {
     try {
       const token = await getAccessToken();
-      console.log("token from stpraga", JSON.parse(token));
+      console.log("token from stpraga", token);
       if (token) {
         setInitialRoute("BottomTab");
       } else {
@@ -71,7 +78,7 @@ const Routes = ({ initialRoute }) => {
           visible: true,
         },
       }}
-      initialRouteName={"SignUp"}
+      initialRouteName={initialRoute}
     >
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="CreatAccount" component={CreatAccount} />
@@ -105,6 +112,12 @@ const Routes = ({ initialRoute }) => {
       <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
       <Stack.Screen name="UserBottom" component={UserBottom} />
       <Stack.Screen name="UserForm" component={UserForm} />
+      <Stack.Screen name="OurPlan" component={OurPlan} />
+      <Stack.Screen name="TreesProject" component={TreesProject} />
+      <Stack.Screen name="Exploreplans" component={Exploreplans} />
+      <Stack.Screen name="Step2" component={Step2} />
+      <Stack.Screen name="Step3" component={Step3} />
+      <Stack.Screen name="Step4" component={Step4} />
     </Stack.Navigator>
   );
 };

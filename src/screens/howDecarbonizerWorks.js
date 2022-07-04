@@ -20,10 +20,12 @@ const HowDecarbonizerWorks = ({ navigation }) => {
     (state) => state.howItWorkReducer
   );
 
-  console.log("how_It_Work_loading", how_It_Work_loading);
+  console.log("howItWork", howItWork);
 
   React.useEffect(() => {
-    dispatch(getHowDecarbonizerWrok());
+    if (Object.keys(howItWork).length === 0) {
+      dispatch(getHowDecarbonizerWrok());
+    }
   }, []);
 
   return (

@@ -1,7 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  Alert,
+} from "react-native";
 import Images from "../../assets/images";
 import { height, width } from "../../services/dimensions";
+import { checkNetworkConnction } from "../CheckNetWork";
 
 const UserTop = () => {
   return (
@@ -10,7 +18,7 @@ const UserTop = () => {
         style={{
           height: height * 0.35,
           position: "relative",
-          backgroundColor: "red",
+          // backgroundColor: "red",
         }}
       >
         <View>

@@ -34,7 +34,10 @@ export default function TokenCard({ navigation }) {
           start={{ x: 0, y: 0 }}
           //   end={{ x: 1, y: 0 }}
           colors={["#1B1B1B", "#323232"]}
-          style={{ borderTopLeftRadius: 30, borderBottomLeftRadius: 30 }}
+          style={{
+            borderTopLeftRadius: 30,
+            borderBottomLeftRadius: 30,
+          }}
         >
           <View
             style={{
