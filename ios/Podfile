@@ -14,9 +14,6 @@ target 'mpower' do
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
-
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
-
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'

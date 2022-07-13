@@ -25,6 +25,7 @@ const TextInputField = (props) => {
     isPassword,
     isInput,
     isDropDown,
+    defaultValue,
   } = props;
 
   return (
@@ -43,6 +44,7 @@ const TextInputField = (props) => {
             placeholder={placeholder}
             placeholderTextColor={placeholderTextColor}
             keyboardType={keyboardType}
+            defaultValue={defaultValue}
             style={[styles.TextInputStyle, { color: color }]}
           />
         )}

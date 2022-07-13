@@ -1,7 +1,9 @@
 import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { countriesProjectApi } from "../../services/api/countriesProjectApi";
+import { navigate } from "../../services/navigation/RootNavigation";
 import { getAccessToken } from "../../util/getAsyncStorage";
+import { setToken } from "../signIn";
 import {
   getPorjectCountriesFailure,
   getProjectCountriesSuccess,
@@ -19,15 +21,18 @@ function* projectGenerator() {
     }
   } catch (error) {
     if (error.response) {
-      console.log("projects countries error response", error);
-      Alert.alert("Project Countries", error?.response?.data?.message);
-      yield put(getPorjectCountriesFailure(error?.response?.data?.message));
-    }
-    if (error.request) {
-      console.log("project countries request error", error.request);
-      Alert.alert("Project Countries", error.response?.data?.message);
-      yield put(getPorjectCountriesFailure(error?.request?.data?.message));
+      if (error.response.status === 403) {
+        Alert.alert("Project Countries", "Session Timeout Please Login Again");
+        yield put(setToken(null));
+        // navigate("SignUp");
+        yield put(getPorjectCountriesFailure(error?.response?.data?.message));
+      } else {
+        console.log("projects countries error response", error.response.status);
+        Alert.alert("Project Countries", error?.response?.data?.message);
+        yield put(getPorjectCountriesFailure(error?.response?.data?.message));
+      }
     } else {
+      Alert.alert("Project Countries", error.message);
       console.log("got some other error in get country", error);
     }
   }

@@ -7,10 +7,8 @@ export const getFaqApi = async (token) => {
   const conectionStatus = await checkNetworkConnction();
 
   console.log("token in api function", token);
-
   console.log("conectionStatus", conectionStatus);
   const API = "content/faq";
-
   if (conectionStatus === true) {
     return getAPIFunction(API, token).then((res) => res);
   } else {

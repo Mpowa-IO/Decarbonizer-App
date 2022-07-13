@@ -2,11 +2,13 @@ import {
   POST_SIGN_IN,
   POST_SIGN_IN_FAILUIRE,
   POST_SIGN_IN_SUCCESS,
+  SET_TOKEN,
 } from "./actionType";
 
 const initailState = {
   userTokenInfo: {},
   signInLoading: false,
+  token: null,
 };
 
 export const signInReducer = (state = initailState, action) => {
@@ -26,6 +28,11 @@ export const signInReducer = (state = initailState, action) => {
       return {
         ...state,
         signInLoading: false,
+      };
+    case SET_TOKEN:
+      return {
+        ...state,
+        token: action.payload,
       };
     default:
       return state;

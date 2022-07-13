@@ -7,10 +7,13 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import { useSelector } from "react-redux";
 import Images from "../assets/images";
 import { height, width } from "../services/dimensions";
 
 const HomeBottom = ({ navigation }) => {
+  const { landing_data } = useSelector((state) => state.landingReducer);
+
   return (
     <View style={{ flexDirection: "row" }}>
       <TouchableOpacity
@@ -75,7 +78,17 @@ const HomeBottom = ({ navigation }) => {
               }}
             >
               <View style={{ marginRight: 15 }}>
-                <Image source={Images.FLAG} />
+                {landing_data?.latest_news?.country?.flag_url ? (
+                  <Image
+                    style={{
+                      height: 33,
+                      width: 45,
+                    }}
+                    source={{
+                      uri: landing_data?.latest_news?.country?.flag_url,
+                    }}
+                  />
+                ) : null}
               </View>
               <Text
                 style={{
@@ -86,12 +99,13 @@ const HomeBottom = ({ navigation }) => {
                   fontFamily: "Alata-Regular",
                 }}
               >
-                Malawi
+                {landing_data?.latest_news?.country?.name}
               </Text>
             </View>
             <View style={{ marginTop: 10, marginLeft: 15 }}>
               <Text style={{ color: "#fff", fontFamily: "Alata-Regular" }}>
-                Proin Gravida Solvatten {"\n"} project 59% funded...
+                {/* Proin Gravida Solvatten {"\n"} project 59% funded... */}
+                {landing_data?.latest_news?.body}
               </Text>
             </View>
           </TouchableOpacity>

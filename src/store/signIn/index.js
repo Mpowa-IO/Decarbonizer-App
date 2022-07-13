@@ -1,2 +1,8 @@
 export { signInReducer } from "./reducer";
-export { postSignIn, postSignInFailure, postSignInSuccess } from "./action";
+
+export {
+  postSignIn,
+  postSignInFailure,
+  postSignInSuccess,
+  setToken,
+} from "./action";

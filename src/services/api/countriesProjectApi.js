@@ -5,6 +5,7 @@ import { getAPIFunction } from "./commonAPI/getApiFunction";
 
 export const countriesProjectApi = async (token) => {
   const connectionStatus = await checkNetworkConnction();
+
   if (connectionStatus) {
     const api = "page/countries";
     return getAPIFunction(api, token).then((res) => res);

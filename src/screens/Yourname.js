@@ -41,6 +41,11 @@ const Yourname = ({ navigation }) => {
       .trim(),
   });
 
+  console.log("initial_email", initial_email);
+  console.log("email", email);
+  console.log("firstName", firstName);
+  console.log("lastName", lastName);
+  console.log("password", password);
   return (
     <KeyboardAwareScrollView style={styles.CreatAccountStyle}>
       <View
@@ -71,14 +76,22 @@ const Yourname = ({ navigation }) => {
               validationSchema={loginValidationSchema}
               initialValues={{ first_name: firstName, last_name: lastName }}
               onSubmit={(values) => {
-                console.log(values);
-                dispatch(setNames(values));
+                console.log("on submit values ", values);
+                // dispatch(setNames(values));
+
                 if (success_message) {
-                  navigation.navigate("SignUp");
-                  dispatch(resetSingup);
+                  navigation.navigate("SignIn");
+                  dispatch(resetSingup());
                   dispatch(resetForm());
                 } else {
-                  dispatch(postSignup(data));
+                  dispatch(setNames(values));
+                  dispatch(
+                    postSignup({
+                      email,
+                      password,
+                      ...values,
+                    })
+                  );
                 }
               }}
             >
@@ -87,13 +100,13 @@ const Yourname = ({ navigation }) => {
                   {console.log(values)}
                   <TextInput
                     isLabel
+                    isInput
                     onChangeText={handleChange("first_name")}
                     onBlur={handleBlur("first_name")}
                     value={values.first_name}
                     Label={strings.FirstName}
-                    defaultValue={values.first_name}
+                    defaultValue={firstName ? firstName : ""}
                     color={"#FFFFFF"}
-                    isInput
                   />
                   {errors.first_name && (
                     <Text style={{ fontSize: 10, color: "red" }}>
@@ -102,14 +115,14 @@ const Yourname = ({ navigation }) => {
                   )}
                   <TextInput
                     isLabel
+                    isInput
                     onChangeText={handleChange("last_name")}
                     onBlur={handleBlur("last_name")}
                     value={values.last_name}
                     Label={strings.LastName}
                     color={"#FFFFFF"}
-                    defaultValue={values.last_name}
+                    defaultValue={lastName ? lastName : ""}
                     style={{ marginTop: 5 }}
-                    isInput
                   />
 
                   {errors.last_name && (

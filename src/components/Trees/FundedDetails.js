@@ -90,9 +90,8 @@ const FundedDetails = () => {
             <Text style={{ color: "white", fontFamily: "Alata-Regular" }}>
               $
               {current_project?.funding?.funding_required_millions
-                ? current_project?.funding?.funding_required_millions
+                ? `${current_project?.funding?.funding_required_millions}m`
                 : "Not avaible"}
-              m
             </Text>
           </View>
         </View>

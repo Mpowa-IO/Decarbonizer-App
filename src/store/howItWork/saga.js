@@ -1,7 +1,9 @@
 import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { howItWorkApi } from "../../services/api/howItWorkApi";
+import { navigate } from "../../services/navigation/RootNavigation";
 import { getAccessToken } from "../../util/getAsyncStorage";
+import { setToken } from "../signIn";
 import { getHowItWrokFailuire, getHowItWrokSuccess } from "./action";
 import { GET_HOW_IT_WORK } from "./actionType";
 
@@ -16,16 +18,20 @@ function* howItWokrGenerator() {
     }
   } catch (error) {
     if (error.response) {
-      Alert.alert(error.response.data.message);
-      console.log("error in signup from with api", error.response);
-      yield put(getHowItWrokFailuire(error.response.data));
+      if (error.response.status === 403) {
+        Alert.alert("Session Timeout Please Login Again");
+        // navigate("SignUp");
+        yield put(setToken(null));
+        yield put(getHowItWrokFailuire(error.response.data));
+      } else {
+        Alert.alert(error.response.data.message);
+        console.log("error in signup from with api", error.response);
+        yield put(getHowItWrokFailuire(error.response.data));
+      }
     }
     // The client never received a response, and the request was never left
-    else if (error.request) {
-      console.log(error.request);
-      Alert.alert(error?.request?.data?.message);
-      yield put(getHowItWrokFailuire(error.request.data));
-    } else {
+    else {
+      Alert.alert(error.message);
     }
   }
 }

@@ -1,3 +1,4 @@
 export const POST_SIGN_IN = "POST_SIGN_IN";
 export const POST_SIGN_IN_SUCCESS = "POST_SIGN_IN_SUCCESS";
 export const POST_SIGN_IN_FAILUIRE = "POST_SIGN_IN_FAILUIRE";
+export const SET_TOKEN = "SET_TOKEN";

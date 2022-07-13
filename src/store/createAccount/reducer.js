@@ -39,6 +39,8 @@ export const createAccountReducer = (state = intialState, action) => {
       };
 
     case SET_NAMES:
+      console.log("in reducer action  for set the names", action.payload);
+
       return {
         ...state,
         firstName: action.payload.first_name,
@@ -66,6 +68,7 @@ export const createAccountReducer = (state = intialState, action) => {
       };
 
     case RESET_STATE:
+      console.log("reseting the state");
       return {
         ...state,
         initial_email: "",

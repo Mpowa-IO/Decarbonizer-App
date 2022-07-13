@@ -1,4 +1,5 @@
 import { all, fork } from "redux-saga/effects";
+import { countryNewsSaga } from "./countryNews";
 import { dashBoardSaga } from "./dashboard";
 import { getFaqSaga } from "./faq";
 import howItWorkSaga from "./howItWork/saga";
@@ -19,4 +20,5 @@ export function* rootSaga() {
   yield all([fork(projectCountriesSaga)]);
   yield all([fork(singleProjectsaga)]);
   yield all([fork(landingSaga)]);
+  yield all([fork(countryNewsSaga)]);
 }

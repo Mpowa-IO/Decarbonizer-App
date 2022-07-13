@@ -5,6 +5,8 @@ import { strings } from "../../components/strings";
 import { REACT_APP_BASE_URL } from "../../../env";
 
 export async function signupApi(data) {
+  console.log("user for signup", data);
+
   const conectionStatus = await checkNetworkConnction();
   if (conectionStatus === true) {
     return axios

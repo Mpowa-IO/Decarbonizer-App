@@ -2,6 +2,7 @@ import {
   POST_SIGN_IN,
   POST_SIGN_IN_FAILUIRE,
   POST_SIGN_IN_SUCCESS,
+  SET_TOKEN,
 } from "./actionType";
 
 export const postSignIn = (payload) => {
@@ -26,3 +27,5 @@ export const postSignInFailure = (payload) => {
     payload,
   };
 };
+
+export const setToken = (payload) => ({ type: SET_TOKEN, payload });

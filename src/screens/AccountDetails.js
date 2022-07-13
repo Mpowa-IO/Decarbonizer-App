@@ -53,16 +53,9 @@ const AccountDetails = ({ navigation }) => {
       .trim(),
   });
 
-  console.log(
-    "initial_email in Account Screen",
-    initial_email,
-    "email",
-    email,
-    "verifyEmail",
-    verifyEmail,
-    "verifyEmail",
-    password
-  );
+  console.log("email", email);
+  console.log("verifyEmail", verifyEmail);
+  console.log("password", password);
   return (
     <KeyboardAwareScrollView style={styles.CreatAccountStyle}>
       <View
@@ -104,7 +97,6 @@ const AccountDetails = ({ navigation }) => {
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                 <Container isPadding>
-                  {console.log("errors", errors)}
                   <TextInput
                     isLabel
                     onChangeText={handleChange("email")}
@@ -115,7 +107,7 @@ const AccountDetails = ({ navigation }) => {
                     Label={strings.email}
                     color={"#FFFFFF"}
                     isInput
-                    defaultValue={email}
+                    defaultValue={email ? email : ""}
                   />
                   {errors.email && (
                     <Text style={{ fontSize: 10, color: "red" }}>
@@ -130,7 +122,7 @@ const AccountDetails = ({ navigation }) => {
                     placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
                     color={"#FFFFFF"}
                     style={{ marginTop: 20 }}
-                    defaultValue={verifyEmail}
+                    defaultValue={verifyEmail ? verifyEmail : ""}
                     isInput
                   />
                   <CustomPasswordInput
@@ -144,7 +136,7 @@ const AccountDetails = ({ navigation }) => {
                     isPassword
                     isInput
                     togglePassword={togglePassWordVisible}
-                    defaultValue={password}
+                    defaultValue={password ? password : ""}
                     hidePassword={isPasswordVisible}
                   />
                   {errors.password && (

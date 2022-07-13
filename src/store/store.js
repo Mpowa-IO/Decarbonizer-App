@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
+import { countryNewsReducer } from "./countryNews";
 import { createAccountReducer } from "./createAccount/reducer";
 import { dashBoardReducer } from "./dashboard";
 import { faqReducer } from "./faq";
@@ -15,7 +16,7 @@ import { singleProject } from "./singleProject";
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sagaMiddleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
   reducer: {
     account: createAccountReducer,
     signupReducer,
@@ -27,6 +28,7 @@ export const store = configureStore({
     projectReucer,
     singleProject,
     landingReducer,
+    countryNewsReducer,
   },
 });
 sagaMiddleware.run(rootSaga);

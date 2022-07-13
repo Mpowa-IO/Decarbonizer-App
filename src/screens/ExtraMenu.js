@@ -5,45 +5,50 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-} from 'react-native';
-import React from 'react';
+} from "react-native";
+import React from "react";
 
-import Images from '../assets/images';
-import BottomNav from '../components/BottomNav';
+import Images from "../assets/images";
+import BottomNav from "../components/BottomNav";
 
 const DATA = [
   {
-    id: '1',
-    title: 'Decarbonizer’s mission',
-    path: 'DecarbonizerMission',
+    id: "1",
+    title: "Decarbonizer’s mission",
+    path: "DecarbonizerMission",
   },
   {
-    id: '2',
-    title: 'how decarbonizer works',
-    path: 'HowDecarbonizerWorks',
+    id: "2",
+    title: "how decarbonizer works",
+    path: "HowDecarbonizerWorks",
   },
   {
-    id: '3',
-    title: 'FAQs',
-    path: 'Faq',
+    id: "3",
+    title: "FAQs",
+    path: "Faq",
   },
   {
-    id: '4',
-    title: 'Contact us',
-    path: 'ContactUs',
+    id: "4",
+    title: "Reset Password",
+    path: "ResetPassword",
+  },
+  {
+    id: "5",
+    title: "Contact us",
+    path: "ContactUs",
   },
 ];
 
-const Item = ({title, onPress}) => (
+const Item = ({ title, onPress }) => (
   <TouchableOpacity style={styles.item} onPress={onPress}>
     <Text style={styles.title}>{title}</Text>
   </TouchableOpacity>
 );
 
-const ExtraMenu = props => {
-  const {navigation} = props;
+const ExtraMenu = (props) => {
+  const { navigation } = props;
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <Item title={item.title} onPress={() => navigation.navigate(item.path)} />
   );
   return (
@@ -55,7 +60,7 @@ const ExtraMenu = props => {
         <FlatList
           data={DATA}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
         />
       </View>
       <BottomNav {...props} />
@@ -66,11 +71,11 @@ const ExtraMenu = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#181818',
+    backgroundColor: "#181818",
   },
   logoTop: {
     paddingTop: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   item: {
     marginVertical: 0,
@@ -79,9 +84,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: '#FFFFFF',
-    fontFamily: 'Alata-Regular',
-    textTransform: 'uppercase',
+    color: "#FFFFFF",
+    fontFamily: "Alata-Regular",
+    textTransform: "uppercase",
     marginTop: 50,
   },
 });

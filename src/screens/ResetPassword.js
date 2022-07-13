@@ -26,7 +26,7 @@ import { height } from "../services/dimensions";
 import { useDispatch, useSelector } from "react-redux";
 import { postSignIn, resetForm } from "../store";
 import { useRoute } from "@react-navigation/native";
-const SignIn = ({ navigation }) => {
+const ResetPassword = ({ navigation }) => {
   const dispatch = useDispatch();
   const route = useRoute();
   let backHandler = null;
@@ -55,14 +55,21 @@ const SignIn = ({ navigation }) => {
   }, []);
 
   const loginValidationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Please enter valid email")
-      .required("Email Address is Required"),
     password: yup
       .string()
-      .min(6, ({ min }) => `Password must be at least ${min} characters`)
-      .required("Password is required"),
+      .required("Password is Required")
+      .min(6, "Your password must be longer than 6 characters.")
+      .matches(/^(?=.{6,})/, "Must Contain 6 Characters")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])/,
+        "Must Contain One Uppercase, One Lowercase"
+      )
+      .matches(
+        /^(?=.*[!@#\$%\^&\*])/,
+        "Must Contain One Special Case Character"
+      )
+      .matches(/^(?=.{6,20}$)\D*\d/, "Must Contain One Number")
+      .trim(),
   });
 
   return (
@@ -91,14 +98,14 @@ const SignIn = ({ navigation }) => {
           </View>
           <View>
             <Breadcrumbs
-              BreadText={strings.SingIN}
-              onPress={() => navigation.navigate("SignUp")}
+              BreadText={"Reset Password"}
+              onPress={() => navigation.goBack()}
             />
           </View>
           <View style={styles.SocialView}>
             <Container isPadding>
               <InfoLabel
-                Info={strings.PleaseSingin}
+                Info={"Please Enter a New Password"}
                 style={{ paddingTop: 20 }}
                 textAlign={"center"}
               />
@@ -109,37 +116,22 @@ const SignIn = ({ navigation }) => {
           <View style={styles.BottomView}>
             <Formik
               validationSchema={loginValidationSchema}
-              initialValues={{ email: "", password: "" }}
+              initialValues={{ password: "" }}
               onSubmit={(values) => {
-                dispatch(postSignIn(values));
+                console.log("vvalues", values);
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                 <Container isPadding>
                   <TextInput
                     isLabel
-                    onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
-                    placeholder={strings.UserID}
-                    placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
-                    color={"#FFFFFF"}
-                    keyboardType={"email-address"}
-                    isInput
-                  />
-                  {errors.email && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
-                      {errors.email}
-                    </Text>
-                  )}
-                  <TextInput
-                    isLabel
                     onChangeText={handleChange("password")}
                     onBlur={handleBlur("password")}
                     value={values.password}
-                    placeholder={strings.YourPassword}
+                    placeholder={strings.ResetPassword}
                     placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
                     color={"#FFFFFF"}
+                    keyboardType={"email-address"}
                     isInput
                   />
                   {errors.password && (
@@ -147,22 +139,25 @@ const SignIn = ({ navigation }) => {
                       {errors.password}
                     </Text>
                   )}
+
+                  <Text
+                    style={{
+                      color: "#D1D1D6",
+                      fontFamily: "Alata-Regular",
+                      paddingTop: 5,
+                      paddingBottom: 5,
+                    }}
+                  >
+                    Your password should have minimum of 6 characters, one
+                    capital letter, one number, and one special character.
+                  </Text>
                   <Button
                     isNormal
                     onPress={handleSubmit}
-                    ButtonText={signInLoading ? "Login..." : strings.Next}
+                    ButtonText={signInLoading ? "Updating" : strings.Next}
                     ButtonColor={"#A8C634"}
                     TextColor={"#E5E5E5"}
-                    style={{ marginTop: 20 }}
-                  />
-                  <Button
-                    isNormal
-                    onPress={() => {
-                      navigation.navigate("ForgotPassword");
-                    }}
-                    ButtonText={strings.Forgot}
-                    TextColor={"#D1D1D6"}
-                    style={{ marginTop: 20 }}
+                    style={{ marginTop: 40 }}
                   />
                 </Container>
               )}
@@ -191,4 +186,4 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
 });
-export default SignIn;
+export default ResetPassword;

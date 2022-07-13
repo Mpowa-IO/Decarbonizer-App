@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Images from "../assets/images";
@@ -18,11 +19,17 @@ import { height, width } from "../services/dimensions";
 import MyTabs from "../services/navigation/BottomTab";
 import BottomTab from "../services/navigation/BottomTab";
 import { getLandingData } from "../store/landing/action";
+import { useRoute } from "@react-navigation/native";
+
 export default function Home(props) {
   const { navigation } = props;
   const dispatch = useDispatch();
+  const route = useRoute();
+  console.log("navigation", route.name);
 
-  console.log("here call the api");
+  const { landing_data } = useSelector((state) => state.landingReducer);
+
+  console.log("landing_data", landing_data);
 
   useEffect(() => {
     dispatch(getLandingData());
@@ -50,7 +57,9 @@ export default function Home(props) {
             paddingBottom: 80,
           }}
         >
-          <View style={{ position: "relative", height: height * 0.25 }}>
+          <View
+            style={{ position: "relative", height: height * 0.25, zIndex: -1 }}
+          >
             <View>
               <Image source={Images.BOTTOM_TREES} style={{ height: "100%" }} />
             </View>

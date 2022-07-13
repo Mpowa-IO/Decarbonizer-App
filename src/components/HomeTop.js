@@ -9,11 +9,13 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
+import { useSelector } from "react-redux";
 
 import Images from "../assets/images";
 import { height, width } from "../services/dimensions";
 
 export default function HomeTop({ navigation }) {
+  const { landing_data } = useSelector((state) => state.landingReducer);
   return (
     <View>
       <ImageBackground
@@ -99,7 +101,9 @@ export default function HomeTop({ navigation }) {
                     paddingRight: 5,
                   }}
                 >
-                  Combined 5722t CO2 offset
+                  Combined{" "}
+                  {landing_data?.co2_offset ? landing_data?.co2_offset : 0}t CO2
+                  offset
                 </Text>
                 <View style={{ paddingLeft: 10 }}>
                   <Text
@@ -109,7 +113,9 @@ export default function HomeTop({ navigation }) {
                       fontFamily: "Alata-Regular",
                     }}
                   >
-                    37
+                    {landing_data?.projects_in_incubation
+                      ? landing_data?.projects_in_incubation
+                      : 0}
                   </Text>
                   <View>
                     <Text
@@ -159,7 +165,7 @@ export default function HomeTop({ navigation }) {
                     fontFamily: "Alata-Regular",
                   }}
                 >
-                  5
+                  {landing_data?.total_heroes ? landing_data?.total_heroes : 0}
                 </Text>
                 <View>
                   <Text

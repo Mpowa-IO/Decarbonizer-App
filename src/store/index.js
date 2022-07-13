@@ -8,3 +8,4 @@ export * from "./dashboard";
 export * from "./projectCountries";
 export * from "./singleProject";
 export * from "./landing";
+export * from "./countryNews";

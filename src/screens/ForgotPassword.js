@@ -26,7 +26,7 @@ import { height } from "../services/dimensions";
 import { useDispatch, useSelector } from "react-redux";
 import { postSignIn, resetForm } from "../store";
 import { useRoute } from "@react-navigation/native";
-const SignIn = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
   const dispatch = useDispatch();
   const route = useRoute();
   let backHandler = null;
@@ -59,10 +59,6 @@ const SignIn = ({ navigation }) => {
       .string()
       .email("Please enter valid email")
       .required("Email Address is Required"),
-    password: yup
-      .string()
-      .min(6, ({ min }) => `Password must be at least ${min} characters`)
-      .required("Password is required"),
   });
 
   return (
@@ -91,14 +87,14 @@ const SignIn = ({ navigation }) => {
           </View>
           <View>
             <Breadcrumbs
-              BreadText={strings.SingIN}
-              onPress={() => navigation.navigate("SignUp")}
+              BreadText={"Forgot Password "}
+              onPress={() => navigation.goBack()}
             />
           </View>
           <View style={styles.SocialView}>
             <Container isPadding>
               <InfoLabel
-                Info={strings.PleaseSingin}
+                Info={strings.ForgotPassword}
                 style={{ paddingTop: 20 }}
                 textAlign={"center"}
               />
@@ -132,36 +128,12 @@ const SignIn = ({ navigation }) => {
                       {errors.email}
                     </Text>
                   )}
-                  <TextInput
-                    isLabel
-                    onChangeText={handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    value={values.password}
-                    placeholder={strings.YourPassword}
-                    placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
-                    color={"#FFFFFF"}
-                    isInput
-                  />
-                  {errors.password && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
-                      {errors.password}
-                    </Text>
-                  )}
                   <Button
                     isNormal
                     onPress={handleSubmit}
                     ButtonText={signInLoading ? "Login..." : strings.Next}
                     ButtonColor={"#A8C634"}
                     TextColor={"#E5E5E5"}
-                    style={{ marginTop: 20 }}
-                  />
-                  <Button
-                    isNormal
-                    onPress={() => {
-                      navigation.navigate("ForgotPassword");
-                    }}
-                    ButtonText={strings.Forgot}
-                    TextColor={"#D1D1D6"}
                     style={{ marginTop: 20 }}
                   />
                 </Container>
@@ -191,4 +163,4 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
 });
-export default SignIn;
+export default ForgotPassword;

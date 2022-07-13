@@ -3,13 +3,12 @@ import { strings } from "../../components/strings";
 import { checkNetworkConnction } from "../checkNetwork";
 import { getAPIFunction } from "./commonAPI/getApiFunction";
 
-export const missionContentApi = async (token) => {
-  const conectionStatus = await checkNetworkConnction();
+export const countryNewsApi = async (id, token) => {
+  const connection = await checkNetworkConnction();
 
-  if (conectionStatus) {
-    const API = "content/info/mission";
-
-    return getAPIFunction(API, token).then((res) => res);
+  if (connection) {
+    const api = `news/country/${id}`;
+    return getAPIFunction(api, token).then((res) => res);
   } else {
     Alert.alert(strings.InternetIssue, strings.ReconnectToTheNetwork);
   }

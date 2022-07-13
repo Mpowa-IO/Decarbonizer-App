@@ -23,6 +23,7 @@ export const setAccount = (payload) => {
 };
 
 export const setNames = (payload) => {
+  console.log("set names payload", payload);
   return {
     type: SET_NAMES,
     payload,

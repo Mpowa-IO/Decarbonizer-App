@@ -8,31 +8,46 @@ import { strings } from "../../components/strings";
 function* SignUp(action) {
   console.log("payload in data in saga", action);
   try {
-    const payload = {
-      email: action.payload.email,
-      password: action.payload.password,
-      first_name: action.payload.firstName,
-      last_name: action.payload.lastName,
-    };
+    // const payload = {
+    //   email: action.payload.email,
+    //   password: action.payload.password,
+    //   first_name: action.payload.firstName,
+    //   last_name: action.payload.lastName,
+    // };
 
-    const response = yield call(signupApi, payload);
+    const response = yield call(signupApi, action.payload);
+    console.log("response singup", response);
     if (response.status === 201 || 200) {
       yield put(postSignupSuccess(response.data));
     }
     action.callBack && action.callBack(response.data);
   } catch (error) {
+    if (error.message === "Network Error") {
+      Alert.alert("SignUp Failed", error.message);
+      yield put(postSignupFailure(error.message));
+      return;
+    }
     // The client was given an error response (5xx, 4xx)
     if (error.response) {
-      Alert.alert(strings.SignUpFailed, error?.response?.data?.message);
-      console.log("error in signup from api", error.response);
-      yield put(postSignupFailure(error?.response?.data));
+      if (error.response.data.error) {
+        Alert.alert(strings.SignUpFailed, error?.response?.data?.error.message);
+        yield put(postSignupFailure(error?.response?.data));
+      } else {
+        Alert.alert(strings.SignUpFailed, error?.response?.data?.message);
+        yield put(postSignupFailure(error?.response?.data));
+        console.log("error in signup from api", error.response);
+      }
     }
+    // if (error.request) {
+    //   Alert.alert(strings.SignUpFailed, "Some Thing Went Wrong");
+    //   yield put(postSignupFailure("Some Thing Went Wrong"));
+    //   console.log("error occur in error request", error.request);
+    // }
     // The client never received a response, and the request was never left
-    else if (error.request) {
-      console.log("errro  in signup request", error.request);
-      Alert.alert(strings.SignUpFailed, error?.request?.data?.message);
-    } else {
+    else {
+      Alert.alert(strings.SignUpFailed, error.message);
       console.log("got some other error", error.message);
+      yield put(postSignupFailure(error?.response?.data));
     }
   }
 }

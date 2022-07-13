@@ -37,8 +37,6 @@ const TreesProject = (props) => {
     (state) => state.singleProject
   );
 
-  console.log("current ptrojecy", current_project);
-
   return (
     <View>
       <View>

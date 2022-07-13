@@ -13,6 +13,7 @@ import { CA } from "../services/data";
 import { strings } from "../components/strings";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail } from "../store";
+import { useState } from "react";
 const CreatAccount = ({ navigation }) => {
   const dispatch = useDispatch();
   const { initial_email } = useSelector((state) => state.account);
@@ -25,6 +26,15 @@ const CreatAccount = ({ navigation }) => {
   });
 
   console.log("initial_email at create account", initial_email);
+
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    first_email: "",
+    second_email: "",
+    password: "",
+    fname: "",
+    lname: "",
+  });
 
   return (
     <KeyboardAwareScrollView style={styles.CreatAccountStyle}>
@@ -76,7 +86,7 @@ const CreatAccount = ({ navigation }) => {
                   color={"#FFFFFF"}
                   keyboardType={"email-address"}
                   isInput
-                  defaultValue={initial_email}
+                  defaultValue={initial_email ? initial_email : ""}
                 />
                 {errors.email && (
                   <Text style={{ fontSize: 10, color: "red" }}>

@@ -4,8 +4,10 @@ import { REACT_APP_BASE_URL } from "../../../env";
 import { strings } from "../../components/strings";
 import { checkNetworkConnction } from "../checkNetwork";
 
-export async function signInApi(data) {
+export const signInApi = async (data) => {
   const conectionStatus = await checkNetworkConnction();
+  console.log("connectionstatus", conectionStatus);
+
   if (conectionStatus === true) {
     return axios
       .post(`${REACT_APP_BASE_URL}/auth/credentials/login`, data, {
@@ -21,4 +23,4 @@ export async function signInApi(data) {
   } else {
     Alert.alert(strings.InternetIssue, strings.ReconnectToTheNetwork);
   }
-}
+};

@@ -1,7 +1,9 @@
 import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { dahsboardApi } from "../../services/api/dashBoardApi";
+import { navigate } from "../../services/navigation/RootNavigation";
 import { getAccessToken } from "../../util/getAsyncStorage";
+import { setToken } from "../signIn";
 import { getDashBoardFailure, getDashBoardSuccess } from "./action";
 import { GET_DASHBOARD } from "./actionType";
 
@@ -16,13 +18,17 @@ function* dashBoardGenerator() {
   } catch (error) {
     console.log("errr in getting dahsboard", error);
     if (error.response) {
-      Alert.alert("DashBoard", error.response.data.message);
-      yield put(getDashBoardFailure(error.response.data.message));
-    }
-    if (error.request) {
-      Alert.alert("DashBoard", error?.request?.data?.message);
-      yield put(getDashBoardFailure(error.request.data.message));
+      if (error.response.status === 403) {
+        Alert.alert("Session Timeout Please Login Again");
+        // navigate("SignUp");
+        yield put(setToken(null));
+        yield put(getDashBoardFailure(error.response.data));
+      } else {
+        Alert.alert("DashBoard", error.response.data.message);
+        yield put(getDashBoardFailure(error.response.data.message));
+      }
     } else {
+      Alert.alert("DashBoard", error.message);
     }
   }
 }
