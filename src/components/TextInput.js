@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import Images from "../assets/images";
 import { height } from "../services/dimensions";
@@ -66,8 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#253858",
     borderRadius: 2,
     paddingLeft: 20,
-    // height: height * 0.05,
-    // height: height * 0.05,
+    height: Platform.OS === "ios" ? height * 0.05 : height * 0.07,
   },
   LabelText: {
     color: "#FFFFFF",

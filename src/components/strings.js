@@ -43,6 +43,8 @@ export const strings = {
   PleaseSingin: "Please sign in using the details you registered beforehand.",
   ForgotPassword: "Please Enter mail that you registered beforehand",
   ResetPassword: "Enter a New PassWord",
+  InternetIssue: "Internet Issue",
+  ReconnectToTheNetwork: "Reconnect to the network",
 };
 
 export const IF_OS_IS_IOS = Platform.OS === "ios";

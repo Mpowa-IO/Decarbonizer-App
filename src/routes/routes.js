@@ -78,7 +78,6 @@ export const SetRoutes = () => {
 const Routes = ({ initialRoute }) => {
   const Stack = createNativeStackNavigator();
   const { token } = useSelector((state) => state.signInReducer);
-
   console.log("token from the routes state", token);
 
   return (

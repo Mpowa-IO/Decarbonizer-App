@@ -18,41 +18,16 @@ import TextInput from "../components/TextInput";
 import Images from "../assets/images";
 
 // data
-import { CA } from "../services/data";
+
 import { strings } from "../components/strings";
 import InfoLabel from "../components/InfoLabel";
-import Footer from "../components/Footer";
+
 import { height } from "../services/dimensions";
 import { useDispatch, useSelector } from "react-redux";
-import { postSignIn, resetForm } from "../store";
-import { useRoute } from "@react-navigation/native";
+import { forGotPassword, forGotPassWordResetState } from "../store";
+
 const ForgotPassword = ({ navigation }) => {
   const dispatch = useDispatch();
-  const route = useRoute();
-  let backHandler = null;
-
-  console.log("route is ", route);
-
-  const { signInLoading, userTokenInfo } = useSelector(
-    (state) => state.signInReducer
-  );
-
-  const { initial_email, email, verifyEmail, password, firstName, lastName } =
-    useSelector((state) => state.account);
-
-  console.log("initial_email from signIn", initial_email);
-  console.log("email from signIn", email);
-  console.log("firstName from signIn", firstName);
-  console.log("lastName from signIn", lastName);
-
-  // console.log("userTokenInfo", userTokenInfo);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      dispatch(resetForm());
-    });
-    return unsubscribe;
-  }, []);
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -60,6 +35,11 @@ const ForgotPassword = ({ navigation }) => {
       .email("Please enter valid email")
       .required("Email Address is Required"),
   });
+
+  const { forgot_pass_loading, forgot_message } = useSelector(
+    (state) => state.forGotpassWordState
+  );
+  console.log("forgot_pass_loading", forgot_pass_loading);
 
   return (
     <KeyboardAwareScrollView style={styles.CreatAccountStyle}>
@@ -105,9 +85,14 @@ const ForgotPassword = ({ navigation }) => {
           <View style={styles.BottomView}>
             <Formik
               validationSchema={loginValidationSchema}
-              initialValues={{ email: "", password: "" }}
+              initialValues={{ email: "" }}
               onSubmit={(values) => {
-                dispatch(postSignIn(values));
+                if (forgot_message) {
+                  navigation.navigate("SignIn");
+                  dispatch(forGotPassWordResetState());
+                } else {
+                  dispatch(forGotPassword(values));
+                }
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
@@ -131,11 +116,23 @@ const ForgotPassword = ({ navigation }) => {
                   <Button
                     isNormal
                     onPress={handleSubmit}
-                    ButtonText={signInLoading ? "Login..." : strings.Next}
+                    ButtonText={
+                      forgot_pass_loading ? "Sending Link.." : strings.Next
+                    }
                     ButtonColor={"#A8C634"}
                     TextColor={"#E5E5E5"}
                     style={{ marginTop: 20 }}
                   />
+                  <Text
+                    style={{
+                      color: "#E5E5E5",
+                      marginTop: 10,
+                    }}
+                  >
+                    {forgot_message
+                      ? `${forgot_message} Please Check mail `
+                      : null}
+                  </Text>
                 </Container>
               )}
             </Formik>

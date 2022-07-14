@@ -3,12 +3,13 @@ import { REACT_APP_BASE_URL } from "../../../../env";
 
 export async function postAPIFunction(API, headerToken, data) {
   let params = data == undefined ? null : data;
-  // console.log("in common api function", API, params);
-  // return await axios.post(`${REACT_APP_BASE_URL}/${API}`, params, {
-  //   headers: {
-  //     Accept: "application/json",
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${headerToken}`,
-  //   },
-  // });
+  console.log("in common api function", API, params);
+  return await axios.post(`${REACT_APP_BASE_URL}/${API}`, params, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authkey: "ac56a8d2ca1fa26b",
+      Authorization: `Bearer ${headerToken}`,
+    },
+  });
 }

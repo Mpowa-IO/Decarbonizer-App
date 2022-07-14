@@ -24,8 +24,9 @@ import InfoLabel from "../components/InfoLabel";
 import Footer from "../components/Footer";
 import { height } from "../services/dimensions";
 import { useDispatch, useSelector } from "react-redux";
-import { postSignIn, resetForm } from "../store";
+import { postSignIn, resetForm, resetPassWord } from "../store";
 import { useRoute } from "@react-navigation/native";
+
 const ResetPassword = ({ navigation }) => {
   const dispatch = useDispatch();
   const route = useRoute();
@@ -36,16 +37,6 @@ const ResetPassword = ({ navigation }) => {
   const { signInLoading, userTokenInfo } = useSelector(
     (state) => state.signInReducer
   );
-
-  const { initial_email, email, verifyEmail, password, firstName, lastName } =
-    useSelector((state) => state.account);
-
-  console.log("initial_email from signIn", initial_email);
-  console.log("email from signIn", email);
-  console.log("firstName from signIn", firstName);
-  console.log("lastName from signIn", lastName);
-
-  // console.log("userTokenInfo", userTokenInfo);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {

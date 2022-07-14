@@ -9,3 +9,5 @@ export * from "./projectCountries";
 export * from "./singleProject";
 export * from "./landing";
 export * from "./countryNews";
+export * from "./forgotPassword";
+export * from "./resetPassWord";

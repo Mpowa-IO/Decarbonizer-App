@@ -4,10 +4,12 @@ import { countryNewsReducer } from "./countryNews";
 import { createAccountReducer } from "./createAccount/reducer";
 import { dashBoardReducer } from "./dashboard";
 import { faqReducer } from "./faq";
+import { forGotpassWordState } from "./forgotPassword";
 import howItWorkReducer from "./howItWork/reducer";
 import { landingReducer } from "./landing";
 import { missionContent } from "./missionContent";
 import { projectReucer } from "./projectCountries";
+import { resetPasswordReducer } from "./resetPassWord";
 import { rootSaga } from "./rootSaga";
 import { signInReducer } from "./signIn";
 import { signupReducer } from "./signup/reducer";
@@ -29,6 +31,8 @@ export const store = configureStore({
     singleProject,
     landingReducer,
     countryNewsReducer,
+    forGotpassWordState,
+    resetPasswordReducer,
   },
 });
 sagaMiddleware.run(rootSaga);
