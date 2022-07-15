@@ -6,12 +6,14 @@ import { NavigationContainer } from "@react-navigation/native";
 // routes
 import Routes, { SetRoutes } from "./src/routes/routes";
 import MyTabs from "./src/services/navigation/BottomTab";
+import Toast from "react-native-toast-message";
 
 function App() {
   return (
     <NavigationContainer ref={navigationRef}>
       <SetRoutes />
       {/* <MyTabs /> */}
+      <Toast />
     </NavigationContainer>
   );
 }

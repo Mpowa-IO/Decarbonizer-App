@@ -5,12 +5,11 @@ import {
   SET_TOKEN,
 } from "./actionType";
 
-export const postSignIn = (payload) => {
-  console.log("inside the postsing in action", payload);
-
+export const postSignIn = (payload, callBack) => {
   return {
     type: POST_SIGN_IN,
     payload,
+    callBack,
   };
 };
 

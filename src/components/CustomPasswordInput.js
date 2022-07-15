@@ -6,8 +6,10 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import Images from "../assets/images";
+import { height } from "../services/dimensions";
 
 const CustomPasswordInput = (props) => {
   const {
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#253858",
     borderRadius: 2,
     paddingLeft: 20,
+    height: Platform.OS === "ios" ? height * 0.05 : height * 0.07,
   },
   LabelText: {
     color: "#FFFFFF",
