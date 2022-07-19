@@ -27,11 +27,11 @@ const DATA = [
     title: "FAQs",
     path: "Faq",
   },
-  {
-    id: "4",
-    title: "Reset Password",
-    path: "ResetPassword",
-  },
+  // {
+  //   id: "4",
+  //   title: "Reset Password",
+  //   path: "ResetPassword",
+  // },
   {
     id: "5",
     title: "Contact us",

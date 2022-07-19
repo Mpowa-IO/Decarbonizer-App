@@ -582,7 +582,11 @@ const FundingDetails = ({ navigation }) => {
                       )}
                     </View>
 
-                    <View>
+                    <View
+                      style={{
+                        zIndex: -1,
+                      }}
+                    >
                       <View
                         style={{
                           flexDirection: "row",

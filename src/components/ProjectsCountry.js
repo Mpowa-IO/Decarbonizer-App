@@ -22,7 +22,7 @@ const ProjectsCountry = ({ project, navigation }) => {
       style={{
         flexDirection: "row",
         height: 140,
-        width: 140,
+        width: "33.3333333333%",
       }}
     >
       <TouchableOpacity
@@ -46,7 +46,7 @@ const ProjectsCountry = ({ project, navigation }) => {
           <Text
             style={{
               color: "#fff",
-              fontSize: 22,
+              fontSize: 18,
               fontFamily: "Alata-Regular",
               paddingLeft: 10,
               paddingTop: 10,
