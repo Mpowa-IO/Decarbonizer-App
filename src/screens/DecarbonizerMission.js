@@ -45,7 +45,9 @@ const DecarbonizerMission = ({ navigation }) => {
             ) : null}
             <Text style={styles.TextMain}>
               {mission?.body
-                ? mission?.body.replace(/(<([^>]+)>)/gi, "")
+                ? mission?.body
+                    .replace(/(<([^>]+)>)/gi, "")
+                    .replace(/&(nbsp|amp|quot|lt|gt);/g, " ")
                 : null}
 
               {/* Decarbonizer is brought to you by MPOWA - a start up based in the

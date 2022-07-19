@@ -36,9 +36,12 @@ const TreesProject = (props) => {
   const { current_project, current_project_loading } = useSelector(
     (state) => state.singleProject
   );
-
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor: "#181818",
+      }}
+    >
       <View>
         <Logo {...props} isArrow backgroundColor={"#181818"} />
       </View>

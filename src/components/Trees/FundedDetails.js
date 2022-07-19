@@ -26,7 +26,7 @@ const FundedDetails = () => {
           {current_project?.funding?.funded_percentage &&
           current_project?.funding?.funded_percentage
             ? current_project?.funding?.funded_percentage
-            : "Not Avaible"}{" "}
+            : null}{" "}
           of goal
         </Text>
       </View>
@@ -82,7 +82,7 @@ const FundedDetails = () => {
                 {current_project?.funding?.funding_provided &&
                 current_project?.funding?.funding_provided
                   ? current_project?.funding?.funding_provided
-                  : "Not avaible"}
+                  : null}
               </Text>
             </View>
           </View>
@@ -91,7 +91,7 @@ const FundedDetails = () => {
               $
               {current_project?.funding?.funding_required_millions
                 ? `${current_project?.funding?.funding_required_millions}m`
-                : "Not avaible"}
+                : null}
             </Text>
           </View>
         </View>

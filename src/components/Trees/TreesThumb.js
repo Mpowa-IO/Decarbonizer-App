@@ -7,8 +7,21 @@ import { height, width } from "../../services/dimensions";
 const TreesThumb = () => {
   const { current_project } = useSelector((state) => state.singleProject);
 
+  console.log("");
+
+  function numFormatter(num) {
+    if (num > 999 && num < 1000000) {
+      return (num / 1000).toFixed(1) + "K"; // convert to K for number from > 1000 < 1 million
+    } else if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
+    } else if (num < 900) {
+      return num; // if value < 1000, nothing to do
+    } else {
+      return num;
+    }
+  }
   return (
-    <View style={{ position: "relative", height: height * 0.3 }}>
+    <View style={{ position: "relative", height: height * 0.35 }}>
       <View>
         <Image source={Images.HOME_THUMB} style={{ height: "100%" }} />
       </View>
@@ -59,7 +72,7 @@ const TreesThumb = () => {
           >
             Location:{" "}
             <Text style={{ color: "#A8C634" }}>
-              {current_project?.location_name}
+              {current_project?.location?.name}
             </Text>
           </Text>
           <Text
@@ -85,7 +98,7 @@ const TreesThumb = () => {
           >
             Households impact:{" "}
             <Text style={{ color: "#A8C634" }}>
-              {current_project?.impact_household}
+              {numFormatter(current_project?.impact_household)}
             </Text>
           </Text>
           <Text
@@ -99,7 +112,7 @@ const TreesThumb = () => {
             People impact:{" "}
             <Text style={{ color: "#A8C634" }}>
               {" "}
-              {current_project?.impact_people}{" "}
+              {numFormatter(current_project?.impact_people)}{" "}
             </Text>
           </Text>
         </View>

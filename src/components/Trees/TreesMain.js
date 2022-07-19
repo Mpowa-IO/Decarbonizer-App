@@ -12,14 +12,13 @@ const TreesMain = ({ navigation }) => {
       <View>
         {current_project?.hero?.image_url ? (
           <Image
-            style={{ height: 350 }}
+            style={{ height: height * 0.5 }}
             source={{
               uri: current_project?.hero?.image_url,
             }}
           />
-        ) : (
-          <Image source={Images.TREES_MAIN} />
-        )}
+        ) : // <Image source={Images.TREES_MAIN} />
+        null}
       </View>
       <View
         style={{

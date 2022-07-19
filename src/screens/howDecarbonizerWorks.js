@@ -46,7 +46,9 @@ const HowDecarbonizerWorks = ({ navigation }) => {
           ) : null}
           <Text style={styles.TextMain}>
             {howItWork?.body
-              ? howItWork?.body.replace(/(<([^>]+)>)/gi, "")
+              ? howItWork?.body
+                  .replace(/(<([^>]+)>)/gi, "")
+                  .replace(/&(nbsp|amp|quot|lt|gt);/g, " ")
               : null}
             {/* Decarbonizer uses donations to fund energy and water projects,
             initially in Africa.{"\n"}

@@ -123,7 +123,11 @@ const Faq = ({ navigation }) => {
                         fontFamily: "Alata-Regular",
                       }}
                     >
-                      {item?.body.replace(/(<([^>]+)>)/gi, "")}
+                      {item?.body
+                        ? item?.body
+                            .replace(/(<([^>]+)>)/gi, "")
+                            .replace(/&(nbsp|amp|quot|lt|gt);/g, " ")
+                        : null}
                     </Text>
                   </View>
                 )}

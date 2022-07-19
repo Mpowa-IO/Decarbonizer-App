@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { useSelector } from "react-redux";
 import Images from "../assets/images";
@@ -55,60 +56,85 @@ const HomeBottom = ({ navigation }) => {
             style={{ height: height * 0.25, width: width * 0.5 }}
           />
         </View>
-        <View style={{ position: "absolute", left: 0, right: 0 }}>
-          <TouchableOpacity activeOpacity={0.7}>
-            <Text
-              style={{
-                textTransform: "uppercase",
-                color: "#fff",
-                fontSize: 20,
-                textAlign: "center",
-                fontFamily: "Alata-Regular",
-                paddingTop: 15,
-              }}
-            >
-              pROJECT nEWS
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginLeft: 15,
-                marginTop: 15,
-              }}
-            >
-              <View style={{ marginRight: 15 }}>
-                {landing_data?.latest_news?.country?.flag_url ? (
-                  <Image
-                    style={{
-                      height: 33,
-                      width: 45,
-                    }}
-                    source={{
-                      uri: landing_data?.latest_news?.country?.flag_url,
-                    }}
-                  />
-                ) : null}
-              </View>
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+          }}
+        >
+          <ScrollView
+            nestedScrollEnabled={true}
+            style={{ height: height * 0.3 }}
+          >
+            <TouchableOpacity activeOpacity={0.7}>
               <Text
                 style={{
+                  textTransform: "uppercase",
                   color: "#fff",
-                  color: "#fff",
-                  fontSize: 22,
+                  fontSize: 20,
                   textAlign: "center",
                   fontFamily: "Alata-Regular",
+                  paddingTop: 10,
                 }}
               >
-                {landing_data?.latest_news?.country?.name}
+                pROJECT nEWS
               </Text>
-            </View>
-            <View style={{ marginTop: 10, marginLeft: 15 }}>
-              <Text style={{ color: "#fff", fontFamily: "Alata-Regular" }}>
-                {/* Proin Gravida Solvatten {"\n"} project 59% funded... */}
-                {landing_data?.latest_news?.body}
-              </Text>
-            </View>
-          </TouchableOpacity>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: 15,
+                  marginTop: 10,
+                }}
+              >
+                <View style={{ marginRight: 15 }}>
+                  {landing_data?.latest_news?.country?.flag_url ? (
+                    <Image
+                      style={{
+                        height: 33,
+                        width: 45,
+                      }}
+                      source={{
+                        uri: landing_data?.latest_news?.country?.flag_url,
+                      }}
+                    />
+                  ) : null}
+                </View>
+                <Text
+                  style={{
+                    color: "#fff",
+                    color: "#fff",
+                    fontSize: 20,
+                    textAlign: "center",
+                    fontFamily: "Alata-Regular",
+                  }}
+                >
+                  {landing_data?.latest_news?.country?.name}
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginTop: 10,
+                  marginLeft: 15,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontFamily: "Alata-Regular",
+                  }}
+                >
+                  {landing_data?.latest_news
+                    ? landing_data?.latest_news?.body
+                        .replace(/(<([^>]+)>)/gi, "")
+                        .replace(/&(nbsp|amp|quot|lt|gt);/g, " ")
+                    : null}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </View>
     </View>

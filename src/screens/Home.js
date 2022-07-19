@@ -43,7 +43,10 @@ export default function Home(props) {
         // backgroundColor:'#000'
       }}
     >
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled={true}
+      >
         <View style={styles.container}>
           <View style={styles.HomeTopWrapper}>
             <HomeTop {...props} />
@@ -92,7 +95,7 @@ export default function Home(props) {
                 Join the growing crowd of people making a measurable, traceable,
                 transparent impact in climate-positive giving and investing.
               </Text>
-              <View style={{ marginTop: height * 0.03 }}>
+              <View style={{ marginTop: height * 0.02 }}>
                 <TouchableOpacity
                   style={{
                     backgroundColor: "#A8C634",

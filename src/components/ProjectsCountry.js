@@ -42,18 +42,25 @@ const ProjectsCountry = ({ project, navigation }) => {
         <View>
           <Image source={Images.GREEN_BOX} style={{ height: "100%" }} />
         </View>
-        <View style={{ position: "absolute", top: 0 }}>
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            padding: 5,
+          }}
+        >
           <Text
             style={{
               color: "#fff",
-              fontSize: 18,
+              fontSize: 17,
               fontFamily: "Alata-Regular",
-              paddingLeft: 10,
+              paddingLeft: 8,
               paddingTop: 10,
             }}
           >
+            {/* {project?.location?.name} */}
+            {"\n"}
             {project?.name}
-            {project?.location_name}
           </Text>
         </View>
       </TouchableOpacity>

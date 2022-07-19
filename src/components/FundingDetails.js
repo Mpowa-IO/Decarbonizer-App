@@ -28,7 +28,7 @@ const FundingDetails = ({ navigation }) => {
     (state) => state.countryNewsReducer
   );
 
-  console.log("country_news", country_news);
+  console.log("country_news", project_countries);
 
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [showTip, setTip] = useState(false);
@@ -75,12 +75,24 @@ const FundingDetails = ({ navigation }) => {
   const [isTextTipVisible, setIsTextTipVisible] = useState(false); // make tooltip visible
   const [currentToolTipTitle, setCurrentToolTipTile] = useState(""); // tooltip text
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      setIsTipVisible(null);
-    });
-    return unsubscribe;
-  }, []);
+  function numFormatter(num) {
+    if (num > 999 && num < 1000000) {
+      return (num / 1000).toFixed(1) + "K"; // convert to K for number from > 1000 < 1 million
+    } else if (num > 1000000) {
+      return (num / 1000000).toFixed(1) + "M"; // convert to M for number from > 1 million
+    } else if (num < 900) {
+      return num; // if value < 1000, nothing to do
+    } else {
+      return num;
+    }
+  }
+
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("focus", () => {
+  //     setIsTipVisible(null);
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   return (
     <View
@@ -225,11 +237,11 @@ const FundingDetails = ({ navigation }) => {
                             <Text
                               style={{
                                 color: "#A8C634",
-                                fontSize: 30,
+                                fontSize: 22,
                                 fontFamily: "Alata-Regular",
                               }}
                             >
-                              {item?.co2_offset_annum}
+                              {numFormatter(item?.co2_offset_annum)}
                             </Text>
                           </View>
                         </View>
@@ -593,6 +605,7 @@ const FundingDetails = ({ navigation }) => {
                           flexWrap: "wrap",
                         }}
                       >
+                        {/* projects map */}
                         {item.projects.map((project, index) => {
                           return (
                             <ProjectsCountry
@@ -604,44 +617,49 @@ const FundingDetails = ({ navigation }) => {
                         })}
                       </View>
                       <View>
+                        {/* hero image */}
                         {item?.projects.slice(0, 1).map((project, index) => {
                           return (
-                            <View
-                              key={index}
-                              style={{
-                                height: 400,
-                                width: "100%",
-                                bottom: 0,
-                              }}
-                            >
-                              <View>
-                                <Image
-                                  source={{ uri: project?.hero?.image_url }}
+                            <>
+                              {project?.hero?.image_url ? (
+                                <View
+                                  key={index}
                                   style={{
-                                    height: height * 1,
-                                  }}
-                                />
-                              </View>
-                              <View
-                                style={{
-                                  position: "absolute",
-                                  width: width * 0.5,
-                                  right: width * -0.1,
-                                  top: height * 0.15,
-                                }}
-                              >
-                                <Text
-                                  style={{
-                                    color: "#fff",
-                                    fontSize: 24,
-                                    fontFamily: "Alata-Regular",
-                                    textAlign: "left",
+                                    // height: 400,
+                                    width: "100%",
+                                    bottom: 0,
                                   }}
                                 >
-                                  {project?.hero?.name}
-                                </Text>
-                              </View>
-                            </View>
+                                  <View>
+                                    <Image
+                                      source={{ uri: project?.hero?.image_url }}
+                                      style={{
+                                        height: height * 1,
+                                      }}
+                                    />
+                                  </View>
+                                  <View
+                                    style={{
+                                      position: "absolute",
+                                      width: width * 0.5,
+                                      right: width * -0.1,
+                                      top: height * 0.15,
+                                    }}
+                                  >
+                                    <Text
+                                      style={{
+                                        color: "#fff",
+                                        fontSize: 24,
+                                        fontFamily: "Alata-Regular",
+                                        textAlign: "left",
+                                      }}
+                                    >
+                                      {project?.hero?.name}
+                                    </Text>
+                                  </View>
+                                </View>
+                              ) : null}
+                            </>
                           );
                         })}
                       </View>
@@ -652,6 +670,7 @@ const FundingDetails = ({ navigation }) => {
                       }}
                     >
                       <View>
+                        {/* country news  */}
                         {country_news.length
                           ? country_news.map((news, index) => {
                               return (
