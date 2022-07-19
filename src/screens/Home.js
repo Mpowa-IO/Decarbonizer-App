@@ -40,7 +40,7 @@ export default function Home(props) {
     <View
       style={{
         flex: 1,
-        // backgroundColor:'#000'
+        backgroundColor: "#181818",
       }}
     >
       <ScrollView

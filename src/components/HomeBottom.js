@@ -14,6 +14,7 @@ import { height, width } from "../services/dimensions";
 
 const HomeBottom = ({ navigation }) => {
   const { landing_data } = useSelector((state) => state.landingReducer);
+  const [enabled, setEnabled] = React.useState(true);
 
   return (
     <View style={{ flexDirection: "row" }}>
@@ -65,7 +66,16 @@ const HomeBottom = ({ navigation }) => {
         >
           <ScrollView
             nestedScrollEnabled={true}
-            style={{ height: height * 0.3 }}
+            onTouchStart={(ev) => {
+              setEnabled(false);
+            }}
+            onMomentumScrollEnd={(e) => {
+              setEnabled(true);
+            }}
+            onScrollEndDrag={(e) => {
+              setEnabled(true);
+            }}
+            style={{ maxHeight: height * 0.21 }}
           >
             <TouchableOpacity activeOpacity={0.7}>
               <Text
