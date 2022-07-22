@@ -12,9 +12,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8BB2930A3BD98DE448CD2CF0 /* libPods-mpower-mpowerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44711A15C38EF54516D848EE /* libPods-mpower-mpowerTests.a */; };
 		965E83D2F1C84DF4955E50E6 /* Alata-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 462DFBB5F57342D5A30B25E3 /* Alata-Regular.ttf */; };
+		A5A67618288A868900D61D31 /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A67617288A868900D61D31 /* 512.png */; };
+		A5A67619288A9C9400D61D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		ED09084FF33746DE88605428 /* Abel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92973022842A47DB93710153 /* Abel-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		75D83D0E29EBE11590D06AA3 /* libPods-mpower.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mpower.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mpower/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92973022842A47DB93710153 /* Abel-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Abel-Regular.ttf"; path = "../src/assets/fonts/Abel-Regular.ttf"; sourceTree = "<group>"; };
+		A5A67617288A868900D61D31 /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
 		C9BF3A7CF504C81060364F12 /* Pods-mpower.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mpower.debug.xcconfig"; path = "Target Support Files/Pods-mpower/Pods-mpower.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -94,6 +96,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				A5A67617288A868900D61D31 /* 512.png */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -256,9 +259,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A5A67618288A868900D61D31 /* 512.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				965E83D2F1C84DF4955E50E6 /* Alata-Regular.ttf in Resources */,
+				A5A67619288A9C9400D61D31 /* LaunchScreen.storyboard in Resources */,
 				ED09084FF33746DE88605428 /* Abel-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,7 +505,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QQ5M9GD9A5;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = mpower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -515,7 +519,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mpowa.app;
 				PRODUCT_NAME = mpower;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Dev:MPowa";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -530,7 +534,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QQ5M9GD9A5;
 				INFOPLIST_FILE = mpower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -543,7 +547,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mpowa.app;
 				PRODUCT_NAME = mpower;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Dev:MPowa";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
