@@ -8,6 +8,7 @@ export const landingApi = async (token) => {
 
   if (isNetwork) {
     const api = "page/landing";
+
     return getAPIFunction(api, token).then((res) => res);
   } else {
     Alert.alert(strings.InternetIssue, strings.ReconnectToTheNetwork);

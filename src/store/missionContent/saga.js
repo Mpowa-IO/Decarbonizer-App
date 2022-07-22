@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, takeEvery, put } from "redux-saga/effects";
 import { missionContentApi } from "../../services/api/missionContentApi";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import { getMissionContentFailure, getMissionContetSuccess } from "./action";
 import { GET_MISSION_CONTENT } from "./actionType";
@@ -22,6 +22,7 @@ function* missionGenerator() {
         Alert.alert("Session Timeout Please Login Again");
         // navigate("SignUp");
         yield put(setToken(null));
+        yield call(clearAsyncStorage);
         yield put(getMissionContentFailure(error.response.data));
       } else {
         Alert.alert("Mission", error.response.data.message);

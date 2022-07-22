@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { landingApi } from "../../services/api/landingApi";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import { getLandingDataFail, getLandingDataSuccess } from "./action";
 import { GET_LANDING_DATA } from "./actionType";
@@ -26,6 +26,7 @@ function* landingGenerator() {
         Alert.alert("Session Timeout Please Login Again");
         // navigate("SignUp");
         yield put(setToken(null));
+        yield call(clearAsyncStorage);
         yield put(getLandingDataFail(error.response.data));
       } else {
         console.log("eror from api in landig data", error);

@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { howItWorkApi } from "../../services/api/howItWorkApi";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import { getHowItWrokFailuire, getHowItWrokSuccess } from "./action";
 import { GET_HOW_IT_WORK } from "./actionType";
@@ -22,6 +22,7 @@ function* howItWokrGenerator() {
         Alert.alert("Session Timeout Please Login Again");
         // navigate("SignUp");
         yield put(setToken(null));
+        yield call(clearAsyncStorage);
         yield put(getHowItWrokFailuire(error.response.data));
       } else {
         Alert.alert(error.response.data.message);

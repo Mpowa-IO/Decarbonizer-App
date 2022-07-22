@@ -38,7 +38,7 @@ const AccountDetails = ({ navigation }) => {
       .matches(initial_email, "Email Not Match With Previous Mail"),
     password: yup
       .string()
-      // .required("password Address is Required")
+      .required("password  is Required")
       .min(6, "Your password must be longer than 6 characters.")
       .matches(/^(?=.{6,})/, "Must Contain 6 Characters")
       .matches(
@@ -106,6 +106,7 @@ const AccountDetails = ({ navigation }) => {
                     placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
                     Label={strings.email}
                     color={"#FFFFFF"}
+                    keyboardType={"email-address"}
                     isInput
                     defaultValue={email ? email : ""}
                   />
@@ -121,6 +122,7 @@ const AccountDetails = ({ navigation }) => {
                     placeholder={strings.VerifyEmail}
                     placeholderTextColor={"rgba(196, 196, 196, 0.54)"}
                     color={"#FFFFFF"}
+                    keyboardType={"email-address"}
                     style={{ marginTop: 20 }}
                     defaultValue={verifyEmail ? verifyEmail : ""}
                     isInput

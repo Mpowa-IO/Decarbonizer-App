@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { countriesProjectApi } from "../../services/api/countriesProjectApi";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import {
   getPorjectCountriesFailure,
@@ -25,6 +25,7 @@ function* projectGenerator() {
         Alert.alert("Project Countries", "Session Timeout Please Login Again");
         yield put(setToken(null));
         // navigate("SignUp");
+        yield call(clearAsyncStorage);
         yield put(getPorjectCountriesFailure(error?.response?.data?.message));
       } else {
         console.log("projects countries error response", error.response.status);
@@ -32,7 +33,7 @@ function* projectGenerator() {
         yield put(getPorjectCountriesFailure(error?.response?.data?.message));
       }
     } else {
-      Alert.alert("Project Countries", error.message);
+      // Alert.alert("Project Countries", error.message);
       console.log("got some other error in get country", error);
     }
   }

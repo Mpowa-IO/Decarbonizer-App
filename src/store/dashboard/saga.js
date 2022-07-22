@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { dahsboardApi } from "../../services/api/dashBoardApi";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import { getDashBoardFailure, getDashBoardSuccess } from "./action";
 import { GET_DASHBOARD } from "./actionType";
@@ -22,6 +22,7 @@ function* dashBoardGenerator() {
         Alert.alert("Session Timeout Please Login Again");
         // navigate("SignUp");
         yield put(setToken(null));
+        yield call(clearAsyncStorage);
         yield put(getDashBoardFailure(error.response.data));
       } else {
         Alert.alert("DashBoard", error.response.data.message);

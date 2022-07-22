@@ -88,7 +88,7 @@ const HomeBottom = ({ navigation }) => {
                   paddingTop: 10,
                 }}
               >
-                pROJECT nEWS
+                Project News
               </Text>
 
               <View

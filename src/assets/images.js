@@ -4,6 +4,7 @@ const Images = {
   BACK: require("./back.png"),
   IOS: require("./social/apple.png"),
   GOOGLE: require("./social/google.png"),
+  FACEBOOK: require("./social/facebook.png"),
   LINKED_IN: require("./social/linkedIn.png"),
   EYE: require("./eye.png"),
   TAKE_TOUR: require("./TourBG.jpg"),

@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { getFaqApi } from "../../services/api/faqApi";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import { getFaqFailure, getFaqSuccess } from "./action";
 import { GET_FAQ } from "./actionType";
@@ -21,6 +21,7 @@ function* getFaqsGenerator() {
         Alert.alert("Session Timeout Please Login Again");
         // navigate("SignUp");
         yield put(setToken(null));
+        yield call(clearAsyncStorage);
         yield put(getFaqFailure(error.response.data));
       } else {
         Alert.alert("Get Faq", error.response.data.message);

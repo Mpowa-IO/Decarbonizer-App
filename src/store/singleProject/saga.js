@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { singlePlaceApi } from "../../services/api/singleProjct";
 import { navigate } from "../../services/navigation/RootNavigation";
-import { getAccessToken } from "../../util/getAsyncStorage";
+import { clearAsyncStorage, getAccessToken } from "../../util/getAsyncStorage";
 import { setToken } from "../signIn";
 import { getSingleProjectFailure, getSingleProjectSuccess } from "./action";
 import { GET_SINGLE_PROJECT } from "./actionType";
@@ -23,6 +23,7 @@ function* singleProjectGenerator(action) {
       if (error.response.status === 403) {
         Alert.alert("Session Timeout Please Login Again");
         yield put(setToken(null));
+        yield call(clearAsyncStorage);
         // navigate("SignUp");
         yield put(getSingleProjectFailure(error.response.data.message));
       } else {

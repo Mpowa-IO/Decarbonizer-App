@@ -8,14 +8,16 @@ import { strings } from "../../components/strings";
 function* SignUp(action) {
   console.log("payload in data in saga", action);
   try {
-    // const payload = {
-    //   email: action.payload.email,
-    //   password: action.payload.password,
-    //   first_name: action.payload.firstName,
-    //   last_name: action.payload.lastName,
-    // };
+    const payload = {
+      email: action.payload.email.trim(),
+      password: action.payload.password.trim(),
+      first_name: action.payload.first_name.trim(),
+      last_name: action.payload.last_name.trim(),
+    };
 
-    const response = yield call(signupApi, action.payload);
+    console.log("Signup payload", payload);
+
+    const response = yield call(signupApi, payload);
     console.log("response singup", response);
     if (response.status === 201 || 200) {
       yield put(postSignupSuccess(response.data));

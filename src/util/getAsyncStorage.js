@@ -12,5 +12,6 @@ export async function clearAsyncStorage() {
     await AsyncStorage.multiRemove(keys);
   } catch (e) {
     // remove error
+    console.log("error while remove keys", e);
   }
 }

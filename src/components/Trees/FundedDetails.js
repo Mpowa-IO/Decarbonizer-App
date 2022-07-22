@@ -136,23 +136,11 @@ const FundedDetails = () => {
             }}
           >
             {current_project?.vision
-              ? current_project?.vision.replace(/(<([^>]+)>)/gi, "")
+              ? current_project?.vision
+                  .replace(/(<([^>]+)>)/gi, "")
+                  .replace(/&(nbsp|amp|quot|lt|gt);/g, " ")
               : null}
           </Text>
-          {/* <Text
-            style={{
-              color: "#fff",
-              fontFamily: "Alata-Regular",
-              fontSize: 14,
-              lineHeight: 20,
-              marginTop: height * 0.03,
-            }}
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            vehicula dignissim aliquam. Quisque tristique auctor erat, a gravida
-            lectus fringilla eu. Nulla pulvinar accumsan diam id luctus. Morbi
-            placerat nisi odio, eu imperdiet risus ornare sodales.
-          </Text> */}
           <View style={{ marginTop: height * 0.05 }}>
             <TouchableOpacity activeOpacity={0.7}>
               <Text style={{ color: "#59B7FD", fontFamily: "Alata-Regular" }}>

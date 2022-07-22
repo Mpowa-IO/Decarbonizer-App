@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCountryNews, getProjectCountries } from "../store";
 import ProjectsCountry from "./ProjectsCountry";
 import ProjectCountryNews from "./ProjectCountryNews";
-
+import { SvgUri } from "react-native-svg";
 const FundingDetails = ({ navigation }) => {
   const dispatch = useDispatch();
   const { project_countries, project_loading } = useSelector(
