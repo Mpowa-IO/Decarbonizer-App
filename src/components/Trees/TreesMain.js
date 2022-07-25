@@ -25,13 +25,13 @@ const TreesMain = ({ navigation }) => {
           position: "absolute",
           top: height * 0.05,
           padding: 15,
-          right: -15,
+          right: -10,
         }}
       >
         <Text
           style={{
             color: "#FFFFFF",
-            fontSize: 24,
+            fontSize: 22,
             fontFamily: "Alata-Regular",
             width: width * 0.4,
           }}
@@ -41,7 +41,7 @@ const TreesMain = ({ navigation }) => {
           project
         </Text>
       </View>
-      <View style={{ position: "relative", height: height * 0.32 }}>
+      <View style={{ position: "relative", height: height * 0.35 }}>
         <View>
           <Image source={Images.BOTTOM_TREES} style={{ height: "100%" }} />
         </View>

@@ -52,6 +52,7 @@ const Images = {
   VIDEO_BG: require("./Funding/Video.png"),
   PROJECT_TOP_IMG: require("./ProjectDetails/1.png"),
   PROJECT_BOTTOM_IMG: require("./ProjectDetails/2.png"),
+  PROJECT_TREE_IMG: require("./Trees/ProjectTree2.jpg"),
   USER_IMG: require("./ProjectDetails/User.png"),
   IMAGE_MAP: require("./ProjectDetails/map.png"),
   TOKEN_IMG: require("./ProjectDetails/Token.png"),

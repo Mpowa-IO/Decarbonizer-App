@@ -98,14 +98,22 @@ const FundedDetails = () => {
       </View>
       <View style={{ backgroundColor: "#181818", padding: 20 }}>
         <TouchableOpacity
-          style={{ backgroundColor: "#CAB037", padding: 10, borderRadius: 6 }}
+          style={{
+            backgroundColor: "#CAB037",
+            // padding: 10,
+            height: 60,
+            borderRadius: 6,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
           activeOpacity={0.7}
         >
           <Text
             style={{
               fontFamily: "Alata-Regular",
               textAlign: "center",
-              fontSize: 22,
+              fontSize: 20,
+              marginTop: -4,
               color: "#2E2E2E",
             }}
           >

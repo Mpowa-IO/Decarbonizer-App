@@ -47,13 +47,17 @@ export default function PreLunch() {
                     : 0}
                 </Text>
               </View>
-              <View>
+              <View
+                style={{
+                  marginLeft: -10,
+                }}
+              >
                 <Text
                   style={{
                     color: "#fff",
                     textTransform: "uppercase",
                     fontFamily: "Alata-Regular",
-                    fontSize: 16,
+                    fontSize: 15,
                     width: width * 0.3,
                     marginLeft: 20,
                   }}
@@ -89,13 +93,17 @@ export default function PreLunch() {
                   {dashBoard?.active_funded ? dashBoard?.active_funded : 0}
                 </Text>
               </View>
-              <View>
+              <View
+                style={{
+                  marginLeft: -10,
+                }}
+              >
                 <Text
                   style={{
                     color: "#fff",
                     textTransform: "uppercase",
                     fontFamily: "Alata-Regular",
-                    fontSize: 16,
+                    fontSize: 15,
                     width: width * 0.3,
                     marginLeft: 20,
                   }}

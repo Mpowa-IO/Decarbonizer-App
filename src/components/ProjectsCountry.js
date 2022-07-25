@@ -40,7 +40,7 @@ const ProjectsCountry = ({ project, navigation }) => {
         }}
       >
         <View>
-          <Image source={Images.GREEN_BOX} style={{ height: "100%" }} />
+          <Image source={Images.PROJECT_TREE_IMG} style={{ height: "100%" }} />
         </View>
         <View
           style={{

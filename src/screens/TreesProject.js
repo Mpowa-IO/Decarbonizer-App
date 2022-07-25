@@ -45,14 +45,17 @@ const TreesProject = (props) => {
       <View>
         <Logo {...props} isArrow backgroundColor={"#181818"} />
       </View>
+      {current_project_loading ? (
+        <ActivityIndicator size="large" color="#fff" />
+      ) : null}
       <View style={styles.HomeFilter}>
-        {current_project_loading ? (
-          <ActivityIndicator size="large" color="#fff" />
-        ) : null}
-
         <Container>
           <View style={styles.FilterMain}>
-            <View>
+            <View
+              style={{
+                marginRight: 5,
+              }}
+            >
               <Text style={styles.Text}>{current_project?.name}</Text>
             </View>
             <View>
@@ -60,10 +63,12 @@ const TreesProject = (props) => {
                 style={{
                   width: 40,
                   alignItems: "center",
+                  marginRight: 5,
                 }}
               >
                 {current_project?.country?.flag_url ? (
                   <Image
+                    resizeMode="contain"
                     style={{
                       height: 30,
                       width: 50,

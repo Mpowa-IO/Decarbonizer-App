@@ -28,8 +28,6 @@ const FundingDetails = ({ navigation }) => {
     (state) => state.countryNewsReducer
   );
 
-  console.log("country_news", project_countries);
-
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [showTip, setTip] = useState(false);
   const [showLeaf, setshowLeaf] = useState(false);
@@ -258,7 +256,7 @@ const FundingDetails = ({ navigation }) => {
                       <Image source={Images.TOP_SHAPE} />
                     </View>
                     <View style={{ flexDirection: "row", padding: 20 }}>
-                      <View style={{ width: "30%" }}>
+                      <View style={{ width: "28%", overflow: "hidden" }}>
                         <Image source={Images.KEY_MAP} />
                       </View>
                       <View
@@ -487,11 +485,11 @@ const FundingDetails = ({ navigation }) => {
                                   <View>
                                     <Text
                                       style={{
-                                        fontSize: 14,
+                                        fontSize: 13,
                                         fontFamily: "Alata-Regular",
                                         color: "#fff",
                                         height: 70,
-                                        width: 64,
+                                        width: 60,
                                         textAlign: "center",
                                       }}
                                     >
